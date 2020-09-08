@@ -1,0 +1,15 @@
+apiVersion: apps.open-cluster-management.io/v1
+kind: Subscription
+metadata:
+  name: layers-app
+  namespace: layers
+  labels:
+    app: layers-app
+  annotations:
+    apps.open-cluster-management.io/github-path: application
+spec:
+  channel: layers/layers-app-latest
+  placement:
+    placementRef:
+      kind: PlacementRule
+      name: dev-clusters
