@@ -3,6 +3,8 @@ kind: Route
 metadata:
   name: layers-route
   namespace: layers
+  labels:
+    app: layers-app
 spec:
   to:
     kind: Service
