@@ -5,6 +5,7 @@ namespace: layers-argo-test
 
 resources:
 - namespace.yaml
+- application-deloyment-replicas.yaml
 
 bases:
 - ../base

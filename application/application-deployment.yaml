@@ -8,7 +8,7 @@ metadata:
     app.openshift.io/runtime: nodejs
   name: layer1-v1
 spec:
-  replicas: 8
+  replicas: 1
   selector:
     matchLabels:
       app: layer1
