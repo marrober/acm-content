@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: layers-app-dev
+  name: layers-app-test
   namespace: argocd
 spec:
   project: default
@@ -11,4 +11,4 @@ spec:
     path: application
   destination:
     server: https://kubernetes.default.svc
-    namespace: layers-argo-dev
+    namespace: layers-argo-test
