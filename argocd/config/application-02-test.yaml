@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/marrober/layers-deployment.git
     targetRevision: HEAD
-    path: application
+    path: argocd/env/02-test
   destination:
     server: https://kubernetes.default.svc
     namespace: layers-argo-test
