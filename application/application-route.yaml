@@ -2,7 +2,6 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   name: layers-route
-  namespace: layers
   labels:
     app: layers-app
 spec:

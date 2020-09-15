@@ -18,8 +18,6 @@ spec:
       labels:
         app: layer1
         version: v1
-      annotations:
-        sidecar.istio.io/inject: "true"
     spec:
       containers:
       - env:
