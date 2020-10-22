@@ -7,6 +7,7 @@ metadata:
     app.kubernetes.io/part-of: layers
     app.openshift.io/runtime: nodejs
   name: layer1-v1
+  namespace: layers
 spec:
   replicas: 2
   selector:
