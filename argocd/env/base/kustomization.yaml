@@ -1,4 +1,0 @@
-bases:
-- ../../../application
-- github.com/argoproj/argo-events/manifests/cluster-install
-    
