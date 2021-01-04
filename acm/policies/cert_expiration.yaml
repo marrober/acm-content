@@ -20,7 +20,7 @@ spec:
             exclude: []
           remediationAction: inform
           severity: low
-          minimumDuration: 2200h
+          minimumDuration: 5000h
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
