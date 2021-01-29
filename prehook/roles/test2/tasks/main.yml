@@ -1,0 +1,7 @@
+---
+# file: main.yml
+
+  - name: Creating an empty file -task 2 - part 1
+    file:
+      path: "./task2-part1"
+      state: touch
