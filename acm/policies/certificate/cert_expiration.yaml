@@ -1,4 +1,3 @@
----
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
@@ -21,17 +20,3 @@ spec:
           remediationAction: inform
           severity: low
           minimumDuration: 5000h
----
-apiVersion: policy.open-cluster-management.io/v1
-kind: PlacementBinding
-metadata:
-  name: certificate-placement-binding
-  namespace: rhacm-policies
-placementRef:
-  name: dev-clusters
-  kind: PlacementRule
-  apiGroup: apps.open-cluster-management.io
-subjects:
-- name: policy-certificate
-  kind: Policy
-  apiGroup: policy.open-cluster-management.io

@@ -1,0 +1,3 @@
+resources:
+- namespace.yaml
+- config_placement_rule.yaml
