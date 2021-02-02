@@ -8,7 +8,6 @@ bases:
 
 resources:
 - namespace.yaml
-- deploy-app-template.yaml
 - imageStream-liberty-rest-app.yaml
 - pipeline.yaml
 - task-cache-pvc.yaml

@@ -7,6 +7,6 @@ spec:
   triggers:
     - name: github-listener
       bindings:
-        - name: liberty-rest-pipeline-binding
+        - ref: liberty-rest-pipeline-binding
       template:
         name: liberty-rest-trigger-pipeline-template
