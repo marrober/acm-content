@@ -8,9 +8,5 @@ spec:
     value: $(body.pull_request.head.sha)
   - name: gitrepositoryurl
     value: $(body.repository.html_url)
-  - name: pull_request_title
-    value: $(body.pull_request.title)
-  - name: pull_request_action
-    value: $(body.action)
   - name: service-account
-    value: pipeline    
+    value: pipeline

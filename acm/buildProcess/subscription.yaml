@@ -1,0 +1,15 @@
+apiVersion: apps.open-cluster-management.io/v1
+kind: Subscription
+metadata:
+  name: liberty-rest-build
+  namespace: liberty-rest-dev
+  labels:
+    app: liberty-rest-build
+  annotations:
+    apps.open-cluster-management.io/github-path: build/buildResources
+spec:
+  channel: liberty-rest-dev/liberty-rest-build-latest
+  placement:
+    placementRef:
+      kind: PlacementRule
+      name: dev-clusters

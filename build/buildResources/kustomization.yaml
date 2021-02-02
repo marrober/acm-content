@@ -4,6 +4,7 @@ kind: Kustomization
 bases:
 - ../tasks
 - ../resources
+- ../triggers
 
 resources:
 - namespace.yaml
