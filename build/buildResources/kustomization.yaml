@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+bases:
+- ../tasks
+- ../resources
+
+resources:
+- namespace.yaml
+- deploy-app-template.yaml
+- imageStream-liberty-rest-app.yaml
+- pipeline.yaml
+- task-cache-pvc.yaml
+- quay-auth-secret.yaml
+
+namespace: liberty-rest-dev
