@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: layer1
-  namespace: layers
+  name: liberty-rest
+  namespace: liberty-rest-dev
   labels:
-    app: layer1
+    app: liberty-rest
 spec:
   ports:
   - name: http
     port: 8080
   selector:
-    app: layer1
+    app: liberty-rest

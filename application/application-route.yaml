@@ -1,11 +1,11 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: layers-route
-  namespace: layers
+  name: liberty-rest-route
+  namespace: liberty-rest-dev
   labels:
-    app: layers-app
+    app: liberty-rest
 spec:
   to:
     kind: Service
-    name: layer1
+    name: liberty-rest
