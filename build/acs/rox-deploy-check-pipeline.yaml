@@ -1,0 +1,39 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+  name: rox-deploy-check-pipeline
+  namespace: liberty-rest-dev
+spec:
+  description: Rox check of project YAML
+  params:
+    - description: Contents of the deployment YAML to be checked
+      name: yaml
+      type: string
+  tasks:
+    - name: write-yaml
+      params:
+        - name: yaml
+          value: $(params.yaml)
+      taskRef:
+        kind: Task
+        name: write-yaml-file
+      workspaces:
+        - name: deployfiles
+          workspace: files
+    - name: deploy-check
+      params:
+        - name: file
+          value: deploy.yml
+        - name: rox_api_token
+          value: roxsecrets
+        - name: rox_central_endpoint
+          value: roxsecrets
+      runAfter:
+        - write-yaml
+      taskRef:
+        kind: ClusterTask
+        name: rox-deployment-check
+      workspaces:
+        - name: deployfiles
+          workspace: files
+  workspaces:
+    - name: files
