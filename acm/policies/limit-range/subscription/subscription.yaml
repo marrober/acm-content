@@ -4,8 +4,10 @@ metadata:
   name: limit-range-policy
   labels:
     app: layers-app
+    policy: limit-range
   annotations:
     apps.open-cluster-management.io/github-path: acm/policies/limit-range/configuration
+    apps.open-cluster-management.io/github-branch: main
 spec:
   channel: layers/layers-app-latest
   placement:
