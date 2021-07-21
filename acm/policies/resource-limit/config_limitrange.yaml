@@ -1,7 +1,7 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: policy-limitmemory
+  name: policy-limitrange
   namespace: rhacm-policies
 spec:
   remediationAction: enforce
