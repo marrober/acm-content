@@ -4,6 +4,7 @@ resources:
 - limitrange-policy.yaml
 - limitrange-placement-binding.yaml
 - placement-rule.yaml
+- subscription.yaml
 patches:
 - patch: |-
     - op: add
