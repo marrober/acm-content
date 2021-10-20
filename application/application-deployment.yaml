@@ -21,7 +21,6 @@ spec:
         version: v1
     spec:
       containers:
-      - env:
         image: quay.io/marrober/layers:10
         imagePullPolicy: Always
         name: layer1
