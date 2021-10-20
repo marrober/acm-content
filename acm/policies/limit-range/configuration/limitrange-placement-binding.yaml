@@ -2,7 +2,8 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
   name: binding-policy-limitrange
-  namespace: rhacm-policies
+  labels:
+    policy: limit-range
 placementRef:
   name: dev-clusters
   kind: PlacementRule
