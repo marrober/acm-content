@@ -8,7 +8,7 @@ metadata:
   annotations:
     apps.open-cluster-management.io/github-path: application
     apps.open-cluster-management.io/reconcile-option: replace
-    apps.open-cluster-management.io/reconcile-rate: high
+    apps.open-cluster-management.io/reconcile-rate: High
 spec:
   channel: layers/layers-app-latest
   placement:
