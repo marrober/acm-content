@@ -9,7 +9,7 @@ metadata:
   name: layer1-v1
   namespace: layers
 spec:
-  replicas: 2
+  replicas: 10
   selector:
     matchLabels:
       app: layer1
