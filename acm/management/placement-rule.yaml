@@ -4,6 +4,7 @@ metadata:
   name: dev-clusters
   namespace: layers
 spec:
+  clusterReplicas: 1
   clusterConditions:
     - type: ManagedClusterConditionAvailable
       status: "True"
