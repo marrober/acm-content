@@ -6,7 +6,7 @@ metadata:
   labels:
     app: liberty-rest-build
   annotations:
-    apps.open-cluster-management.io/github-path: build/buildResources
+    apps.open-cluster-management.io/github-path: application
 spec:
   channel: liberty-rest-dev/liberty-rest-build-latest
   placement:
