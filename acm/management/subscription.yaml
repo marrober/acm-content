@@ -2,7 +2,7 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: Subscription
 metadata:
   name: layers-app
-  namespace: layers
+  namespace: layers-app
   labels:
     app: layers-app
   annotations:

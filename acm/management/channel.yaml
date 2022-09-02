@@ -2,7 +2,7 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: Channel
 metadata:
   name: layers-app-latest
-  namespace: layers
+  namespace: layers-app
 spec:
   type: GitHub
   pathname: https://github.com/marrober/layers-deployment.git

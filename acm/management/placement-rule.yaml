@@ -2,7 +2,7 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
   name: dev-clusters
-  namespace: layers
+  namespace: layers-app
 spec:
 #  clusterReplicas: 2
   clusterConditions:
