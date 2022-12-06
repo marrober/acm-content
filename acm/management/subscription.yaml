@@ -10,7 +10,7 @@ metadata:
     apps.open-cluster-management.io/reconcile-option: replace
     apps.open-cluster-management.io/reconcile-rate: high
 spec:
-  channel: layers/layers-app-latest
+  channel: layers-app/layers-app-latest
   placement:
     placementRef:
       kind: PlacementRule
