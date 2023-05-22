@@ -1,0 +1,32 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: no-go-image
+  labels:
+    policy: no-go-image
+spec:
+  remediationAction: enforce
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: no-go-image
+        spec:
+          severity: medium
+          namespaceSelector:
+            include:
+            - '*'
+          object-templates:
+            - complianceType: mustnothave
+              objectDefinition:
+                kind: ImageStream
+                apiVersion: image.openshift.io/v1
+                metadata:
+                  annotations:
+                    openshift.io/display-name: Go
+                  name: golang
+                  namespace: openshift
+                  labels:
+                    samples.operator.openshift.io/managed: 'true'

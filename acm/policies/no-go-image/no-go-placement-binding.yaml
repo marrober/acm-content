@@ -1,0 +1,14 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-policy-no-go
+  labels:
+    policy: no-go-image
+placementRef:
+  name: dev-clusters
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+- name: no-go-image
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
