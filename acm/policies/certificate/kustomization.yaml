@@ -7,3 +7,4 @@ bases:
 resources:
 - cert_expiration.yaml
 - certificate_placement_binding.yaml
+- subscription.yaml

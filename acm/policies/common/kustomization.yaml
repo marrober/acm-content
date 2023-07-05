@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
 - namespace.yaml
 - channel.yaml
+- placement-rule.yaml
 patches:
 - patch: |-
     - op: add
