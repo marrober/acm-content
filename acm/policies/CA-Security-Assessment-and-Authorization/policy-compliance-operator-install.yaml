@@ -115,5 +115,5 @@ spec:
   clusterSelector:
     matchExpressions:
       - {key: vendor, operator: In, values: ["OpenShift"]}
-      - {key: nodes, operator: In, values: ["multi"]}
+      - {key: lab-name, operator: In, values: ["mr"]}
 
