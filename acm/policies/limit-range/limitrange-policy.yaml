@@ -24,7 +24,7 @@ spec:
             - default
             - multicluster-endpoint
             include:
-            - '*'
+            - 'test-*'
           object-templates:
             - complianceType: musthave
               objectDefinition:
