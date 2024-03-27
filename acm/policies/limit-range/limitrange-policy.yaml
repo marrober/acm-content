@@ -15,6 +15,7 @@ spec:
           name: policy-limitrange
         spec:
           severity: medium
+          remediationAction: enforce
           namespaceSelector:
             exclude:
             - kube-*
