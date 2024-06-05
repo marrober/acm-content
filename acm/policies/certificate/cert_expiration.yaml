@@ -19,4 +19,4 @@ spec:
             exclude: []
           remediationAction: inform
           severity: low
-          minimumDuration: 5000h
+          minimumDuration: 240h

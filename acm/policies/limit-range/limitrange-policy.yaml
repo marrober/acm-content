@@ -16,15 +16,8 @@ spec:
         spec:
           severity: medium
           namespaceSelector:
-            exclude:
-            - kube-*
-            - openshift-*
-            - openshift
-            - open-cluster*
-            - default
-            - multicluster-endpoint
             include:
-            - '*'
+            - test-*
           object-templates:
             - complianceType: musthave
               objectDefinition:
