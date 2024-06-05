@@ -15,9 +15,10 @@ spec:
           name: policy-limitrange
         spec:
           severity: medium
+          remediationAction: enforce
           namespaceSelector:
             include:
-            - test-*
+            - 'test-*'
           object-templates:
             - complianceType: musthave
               objectDefinition:
