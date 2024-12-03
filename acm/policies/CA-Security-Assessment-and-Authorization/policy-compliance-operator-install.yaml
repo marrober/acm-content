@@ -88,8 +88,6 @@ spec:
                   namespace: openshift-compliance
                 spec:
                   displayName: Compliance Operator
-                status:
-                  phase: Succeeded   # check the csv status to determine if operator is running or not
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
