@@ -18,9 +18,7 @@ spec:
             {{- range $ns:= (lookup "v1" "Namespace" "" "" "").items }}   
             {{- if (contains "must-gather" $ns.metadata.name) }}
             {{- range $sa:= (lookup "v1" "ServiceAccount" $ns.metadata.name "" "").items }}
-            {{- range $pod:= (lookup "v1" "Pod" $ns.metadata.name "" "").items }}
-            {{- if (contains "Completed" $pod.metadata.name) }}
-            {{- if (contains "default" $sa.metadata.name) }}
+            {{- if (gt (now.Sub (mustToDate "2006-01-02T15:04:05Z07:00" $sa.metadata.creationTimestamp)).Hours 3.0) }}
             - complianceType: mustnothave 
               objectDefinition:
                 kind: ServiceAccount
@@ -28,7 +26,6 @@ spec:
                 metadata:
                   namespace: {{ $sa.metadata.namespace }}
                   name: {{ $sa.metadata.name }}
-            {{- end }}
             {{- end }}
             {{- end }}
             {{- end }}
