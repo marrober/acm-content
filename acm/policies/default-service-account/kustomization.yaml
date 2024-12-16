@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- default-sa-placement-rule.yaml
+- default-sa-placement-binding.yaml
+- default-sa-policy.yaml
+patches:
+- patch: |-
+    - op: add
+      path: /metadata/namespace
+      value: rhacm-policies
+  target:
+    labelSelector: "policy=default-sa-annotation"

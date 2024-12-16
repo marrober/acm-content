@@ -1,0 +1,36 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: must-gather-sa
+  labels:
+    policy: must-gather-sa
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: must-gather-sa
+        spec:
+          severity: medium
+          object-templates-raw: |   
+            {{- range $ns:= (lookup "v1" "Namespace" "" "" "").items }}   
+            {{- if (contains "must-gather" $ns.metadata.name) }}
+            {{- range $sa:= (lookup "v1" "ServiceAccount" $ns.metadata.name "" "").items }}
+            {{- range $pod:= (lookup "v1" "Pod" $ns.metadata.name "" "").items }}
+            {{- if (contains "Completed" $pod.metadata.name) }}
+            {{- if (contains "default" $sa.metadata.name) }}
+            - complianceType: mustnothave 
+              objectDefinition:
+                kind: ServiceAccount
+                apiVersion: v1
+                metadata:
+                  namespace: {{ $sa.metadata.namespace }}
+                  name: {{ $sa.metadata.name }}
+            {{- end }}
+            {{- end }}
+            {{- end }}
+            {{- end }}
+            {{- end }}
+          remediationAction: inform

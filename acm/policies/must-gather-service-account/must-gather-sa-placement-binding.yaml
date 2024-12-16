@@ -1,0 +1,14 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-policy-must-gather-sa
+  labels:
+    policy: must-gather-sa
+placementRef:
+  name: dev-clusters
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+- name: must-gather-sa
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io

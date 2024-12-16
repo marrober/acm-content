@@ -1,0 +1,31 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: default-sa
+  labels:
+    policy: default-sa
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: default-sa
+        spec:
+          severity: medium
+          object-templates-raw: |   
+            {{- range $pod := (lookup "v1" "Pod" "" "").items }}
+            {{- if eq .spec.serviceAccountName "default" }}              
+            - complianceType: mustnothave 
+              objectDefinition:
+                kind: Pod
+                apiVersion: v1
+                metadata:
+                  name: {{ .metadata.name }}
+                  namespace: {{ .metadata.namespace }}
+                spec:
+                  serviceAccountName: default
+            {{- end }}
+            {{- end }}
+          remediationAction: inform
