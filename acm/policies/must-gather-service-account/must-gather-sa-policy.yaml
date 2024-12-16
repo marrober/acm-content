@@ -1,9 +1,12 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: must-gather-sa
-  labels:
-    policy: must-gather-sa
+  name: policy-role
+  namespace: rhacm-policies
+  annotations:
+    policy.open-cluster-management.io/categories: CM Configuration Management
+    policy.open-cluster-management.io/controls: CM-2 Baseline Configuration
+    policy.open-cluster-management.io/standards: NIST SP 800-53
 spec:
   disabled: false
   policy-templates:
@@ -11,23 +14,26 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: must-gather-sa
-        spec:
-          severity: medium
-          object-templates-raw: |   
-            {{- range $ns:= (lookup "v1" "Namespace" "" "" "").items }}   
-            {{- if (contains "must-gather" $ns.metadata.name) }}
-            {{- range $sa:= (lookup "v1" "ServiceAccount" $ns.metadata.name "" "").items }}
-            {{- if (gt (now.Sub (mustToDate "2006-01-02T15:04:05Z07:00" $sa.metadata.creationTimestamp)).Hours 3.0) }}
-            - complianceType: mustnothave 
-              objectDefinition:
-                kind: ServiceAccount
-                apiVersion: v1
-                metadata:
-                  namespace: {{ $sa.metadata.namespace }}
-                  name: {{ $sa.metadata.name }}
+          name: policy-global-secret
+        evaluationInterval: 1m
+        spec:  
+          object-templates-raw: |
+            {{- range $ns:= (lookup "v1" "Namespace" "" "" "").items }} 
+              {{- if (contains "must-gather" $ns.metadata.name) }}
+                {{- range $sa:= (lookup "v1" "ServiceAccount" $ns.metadata.name "" "").items }}
+                  {{- if (gt (now.Sub (mustToDate "2006-01-02T15:04:05Z07:00" $sa.metadata.creationTimestamp)).Hours 5.0) }}
+                  - complianceType: mustnothave
+                    objectDefinition:
+                      kind: ServiceAccount
+                      apiVersion: v1
+                      metadata:
+                        namespace: {{ $sa.metadata.namespace }}
+                        name: {{ $sa.metadata.name }}
+                  {{- end }}
+                {{- end }}
+              {{- end }}  
             {{- end }}
-            {{- end }}
-            {{- end }}
-            {{- end }}
+          pruneObjectBehavior: DeleteIfCreated
           remediationAction: inform
+          severity: medium
+  remediationAction: inform

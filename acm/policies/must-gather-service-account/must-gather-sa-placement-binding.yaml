@@ -9,6 +9,6 @@ placementRef:
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:
-- name: must-gather-sa
+- name: policy-role
   kind: Policy
   apiGroup: policy.open-cluster-management.io
