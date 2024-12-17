@@ -1,0 +1,43 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: policy-sa-ownership
+  namespace: rhacm-policies
+  annotations:
+    policy.open-cluster-management.io/categories: CM Configuration Management
+    policy.open-cluster-management.io/controls: CM-2 Baseline Configuration
+    policy.open-cluster-management.io/standards: NIST SP 800-53
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: sa-ownership
+        spec:  
+          evaluationInterval:
+            compliant: 60s
+            noncompliant: 60s
+          customMessage:
+            compliant: "Service accounts have appropriate annotations for ownership"
+            noncompliant: "Service accounts missing ownership annotation"
+          object-templates-raw: |
+            {{- range $ns:= (lookup "v1" "Namespace" "" "" "").items }} 
+              {{- range $sa:= (lookup "v1" "ServiceAccount" $ns.metadata.name "" "").items }}
+                {{- if not ((contains "openshift" $ns.metadata.name)) }}
+                - complianceType: musthavehave
+                  objectDefinition:
+                    kind: ServiceAccount
+                    apiVersion: v1
+                    metadata:
+                      namespace: {{ $sa.metadata.namespace }}
+                      name: {{ $sa.metadata.name }}
+                    annotation:
+                      owner: marrober@redhat.com
+                {{- end }} 
+              {{- end }}  
+            {{- end }}
+          remediationAction: inform
+          severity: medium
+  remediationAction: inform

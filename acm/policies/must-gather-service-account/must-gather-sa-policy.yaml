@@ -1,7 +1,7 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: policy-role
+  name: policy-must-gather
   namespace: rhacm-policies
   annotations:
     policy.open-cluster-management.io/categories: CM Configuration Management
@@ -14,14 +14,16 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: policy-global-secret
-        evaluationInterval: 1m
+          name: must-gather-sa
         spec:  
+          evaluationInterval:
+            compliant: 60s
+            noncompliant: 60s
           object-templates-raw: |
             {{- range $ns:= (lookup "v1" "Namespace" "" "" "").items }} 
               {{- if (contains "must-gather" $ns.metadata.name) }}
                 {{- range $sa:= (lookup "v1" "ServiceAccount" $ns.metadata.name "" "").items }}
-                  {{- if (gt (now.Sub (mustToDate "2006-01-02T15:04:05Z07:00" $sa.metadata.creationTimestamp)).Hours 5.0) }}
+                  {{- if (gt (now.Sub (mustToDate "2006-01-02T15:04:05Z07:00" $sa.metadata.creationTimestamp)).Hours 0.2) }}
                   - complianceType: mustnothave
                     objectDefinition:
                       kind: ServiceAccount
@@ -29,6 +31,34 @@ spec:
                       metadata:
                         namespace: {{ $sa.metadata.namespace }}
                         name: {{ $sa.metadata.name }}
+                  {{- end }}
+                {{- end }}
+              {{- end }}  
+            {{- end }}
+          pruneObjectBehavior: DeleteIfCreated
+          remediationAction: inform
+          severity: medium
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: must-gather-pod
+        spec:  
+          evaluationInterval:
+            compliant: 60s
+            noncompliant: 60s
+          object-templates-raw: |
+            {{- range $ns:= (lookup "v1" "Namespace" "" "" "").items }} 
+              {{- if (contains "must-gather" $ns.metadata.name) }}
+                {{- range $pod:= (lookup "v1" "Pod" $ns.metadata.name "" "").items }}
+                  {{- if (gt (now.Sub (mustToDate "2006-01-02T15:04:05Z07:00" $pod.metadata.creationTimestamp)).Hours 0.2) }}
+                  - complianceType: mustnothave
+                    objectDefinition:
+                      kind: Pod
+                      apiVersion: v1
+                      metadata:
+                        namespace: {{ $pod.metadata.namespace }}
+                        name: {{ $pod.metadata.name }}
                   {{- end }}
                 {{- end }}
               {{- end }}  

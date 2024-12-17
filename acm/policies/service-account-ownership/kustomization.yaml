@@ -2,14 +2,13 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-- must-gather-sa-placement-rule.yaml
-- must-gather-sa-placement-binding.yaml
-- must-gather-sa-policy.yaml
-- must-gather-namespace.yaml
+- sa-ownership-placement-rule.yaml
+- sa-ownership-placement-binding.yaml
+- sa-ownership-policy.yaml
 patches:
 - patch: |-
     - op: add
       path: /metadata/namespace
       value: rhacm-policies
   target:
-    labelSelector: "policy=must-gather"
+    labelSelector: "policy=sa-ownership"

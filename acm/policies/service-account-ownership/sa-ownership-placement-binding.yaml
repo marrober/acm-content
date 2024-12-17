@@ -1,29 +1,29 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
-  name: binding-policy-must-gather
+  name: binding-policy-policy-sa-ownership
   labels:
-    policy: must-gather
+    policy: sa-ownership
 placementRef:
   name: dev-clusters
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:
-- name: policy-must-gather
+- name: policy-sa-ownership
   kind: Policy
   apiGroup: policy.open-cluster-management.io
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
-  name: binding-policy-must-gather-namespace
+  name: binding-policy-sa-ownership
   labels:
-    policy: must-gather
+    policy: sa-ownership
 placementRef:
   name: dev-clusters
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:
-- name: policy-must-gather-namespace
+- name: policy-sa-ownership
   kind: Policy
   apiGroup: policy.open-cluster-management.io

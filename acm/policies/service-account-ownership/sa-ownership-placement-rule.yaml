@@ -3,7 +3,7 @@ kind: PlacementRule
 metadata:
   name: dev-clusters
   labels:
-    policy: must-gather
+    policy: sa-ownership
 spec:
   clusterConditions:
   - type: ManagedClusterConditionAvailable
