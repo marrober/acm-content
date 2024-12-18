@@ -1,3 +1,6 @@
+
+### NOT WORKING
+
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
@@ -25,16 +28,17 @@ spec:
           object-templates-raw: |
             {{- range $ns:= (lookup "v1" "Namespace" "" "" "").items }} 
               {{- range $sa:= (lookup "v1" "ServiceAccount" $ns.metadata.name "" "").items }}
-                {{- if not ((contains "openshift" $ns.metadata.name)) }}
-                - complianceType: musthavehave
-                  objectDefinition:
-                    kind: ServiceAccount
-                    apiVersion: v1
-                    metadata:
-                      namespace: {{ $sa.metadata.namespace }}
-                      name: {{ $sa.metadata.name }}
-                    annotation:
-                      owner: marrober@redhat.com
+                {{- $annotations:= list $sa.metadata.annotations }}
+                {{- range $a:= $annotations }}
+                  {{- if (contains $a "owner") }}
+                  - complianceType: musthave
+                      objectDefinition:
+                        kind: ServiceAccount
+                        apiVersion: v1
+                        metadata:
+                          namespace: {{ $sa.metadata.namespace }}
+                          name: {{ $sa.metadata.name }}
+                   {{- end }}
                 {{- end }} 
               {{- end }}  
             {{- end }}

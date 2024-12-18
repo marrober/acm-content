@@ -13,19 +13,25 @@ spec:
         metadata:
           name: default-sa
         spec:
+          evaluationInterval:
+            compliant: 60s
+            noncompliant: 60s
+          customMessage:
+            compliant: "No default service accounts are in use"
+            noncompliant: "Default service accounts are in use"
           severity: medium
           object-templates-raw: |   
-            {{- range $pod := (lookup "v1" "Pod" "" "").items }}
-            {{- if eq .spec.serviceAccountName "default" }}              
-            - complianceType: mustnothave 
-              objectDefinition:
-                kind: Pod
-                apiVersion: v1
-                metadata:
-                  name: {{ .metadata.name }}
-                  namespace: {{ .metadata.namespace }}
-                spec:
-                  serviceAccountName: default
-            {{- end }}
+            {{- range $pod := (lookup "v1" "Pod" "" "" "").items }}
+              {{- if eq $pod.spec.serviceAccountName "default" }}              
+              - complianceType: mustnothave 
+                objectDefinition:
+                  kind: Pod
+                  apiVersion: v1
+                  metadata:
+                    name: {{ .metadata.name }}
+                    namespace: {{ .metadata.namespace }}
+                  spec:
+                    serviceAccountName: default
+              {{- end }}
             {{- end }}
           remediationAction: inform
