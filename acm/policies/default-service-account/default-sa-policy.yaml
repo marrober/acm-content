@@ -22,7 +22,9 @@ spec:
           severity: medium
           object-templates-raw: |   
             {{- range $pod := (lookup "v1" "Pod" "" "" "").items }}
-              {{- if eq $pod.spec.serviceAccountName "default" }}              
+            {{- if and (eq .spec.serviceAccountName "default") (not (hasPrefix "kube-" .metadata.namespace)) (not (hasPrefix "openshift-" .metadata.namespace)) (not (hasPrefix "rhsso" .metadata.namespace)) (not (hasPrefix "quay-" .metadata.namespace)) (not (hasPrefix "open-cluster-" .metadata.namespace)) (not (hasPrefix "janus-argocd" .metadata.namespace)) (not (hasPrefix "backstage" .metadata.namespace)) }}
+            {{- if and (not (hasPrefix "knative-" .metadata.namespace)) (not (hasPrefix "trusted-profile-" .metadata.namespace)) (not (hasPrefix "cyclonedx" .metadata.namespace)) }}
+            {{- if and (not (hasPrefix "jenkins-" .metadata.namespace)) (not (hasPrefix "trusted-artefact-" .metadata.namespace)) }}
               - complianceType: mustnothave 
                 objectDefinition:
                   kind: Pod
@@ -32,6 +34,8 @@ spec:
                     namespace: {{ .metadata.namespace }}
                   spec:
                     serviceAccountName: default
-              {{- end }}
+            {{- end }}  
+            {{- end }}  
+            {{- end }}
             {{- end }}
           remediationAction: inform
