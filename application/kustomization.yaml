@@ -1,4 +1,0 @@
-resources:
-- application-deployment.yaml
-- application-service.yaml
-- application-route.yaml

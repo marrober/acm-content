@@ -10,7 +10,7 @@ spec:
     status: "True"
   clusterSelector:
     matchExpressions:
-      - key: all-clusters
+      - key: environment
         operator: In
         values:
-        - "true"
+        - "dev"
