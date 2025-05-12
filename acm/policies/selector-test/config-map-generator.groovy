@@ -14,7 +14,7 @@ println b.toString()
 def namespace = "cm-1"
 
 
-String fileContents = new File("/home/marrober/temp/pod-data.json").text
+String fileContents = new File("./temp/pod-data.json").text
 
 println(fileContents)
 
