@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: step-upload-sbom
-  namespace: cm-1
-data:
-  containerName: step-upload-sbom
-  containerImage: quay.io/redhat-appstudio/cosign@sha256:c883d6f8d39148f2cea71bff4622d196d89df3e510f36c140c097b932f0dd5d5
