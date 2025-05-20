@@ -17,11 +17,6 @@ proc.consumeProcessErrorStream(commandResult)
 jsonText = proc.text
 println jsonText
 
-/* def namespace = "cm-1"
-String fileContents = new File("./pod-data.json").text
-
-println(fileContents) */
-
 def jsonSlurperComponentTemplates = new JsonSlurper()
 def slurpedData=jsonSlurperComponentTemplates.parseText(jsonText)
 

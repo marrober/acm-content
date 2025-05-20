@@ -1,10 +1,10 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
-  name: test-placement
+  name: test-binding
   namespace: rhacm-policies
 placementRef:
-  name: test-placement
+  name: dev-clusters
   apiGroup: cluster.open-cluster-management.io
   kind: Placement
 subjects:

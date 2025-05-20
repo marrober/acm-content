@@ -18,7 +18,7 @@ WORKDIR /workspace
 EXPOSE 8080
 USER 1001
 ENV HOME=/workspace
-ENV GROOVY_HOME=/workspace/bin
+ENV GROOVY_HOME=/workspace
 ENV JAVA_HOME=/usr
 
 ENTRYPOINT ["/usr/local/bin/gotty"]
