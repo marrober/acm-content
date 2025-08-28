@@ -108,8 +108,19 @@ spec:
                         requests:
                           memory: 500Mi
                           cpu: 500m
+                    notifierSecretsEncryption:
+                      enabled: false
+                    telemetry:
+                      enabled: true
+                  configAsCode:
+                    configAsCodeComponent: Enabled
                   egress:
                     connectivityPolicy: Online
+                  monitoring:
+                    openshift:
+                      enabled: true
+                  network:
+                    policies: Enabled
                   scanner:
                     analyzer:
                       resources:
@@ -134,6 +145,18 @@ spec:
                         requests:
                           memory: 500Mi
                           cpu: 500m
+                    indexer:
+                      scaling:
+                        autoScaling: Enabled
+                        maxReplicas: 5
+                        minReplicas: 2
+                        replicas: 3
+                    matcher:
+                      scaling:
+                        autoScaling: Enabled
+                        maxReplicas: 5
+                        minReplicas: 2
+                        replicas: 3
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
