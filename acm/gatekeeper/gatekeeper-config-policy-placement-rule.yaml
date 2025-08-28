@@ -1,7 +1,7 @@
 apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
-  name: dev-clusters
+  name: all-openshift-clusters
   labels:
     policy: default-sa
 spec:
@@ -10,7 +10,7 @@ spec:
     status: "True"
   clusterSelector:
     matchExpressions:
-      - key: environment
+      - key: vendor
         operator: In
         values:
-        - "dev"
+        - "OpenShift"
