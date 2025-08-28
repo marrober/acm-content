@@ -1,7 +1,7 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: gitops-operator
+  name: pipelines-operator
 spec:
   remediationAction: enforce
   disabled: false
@@ -10,7 +10,7 @@ spec:
       apiVersion: policy.open-cluster-management.io/v1
       kind: ConfigurationPolicy
       metadata:
-        name: gitops-operator
+        name: pipelines-operator
       spec:
         object-templates:
         - complianceType: musthave
@@ -18,18 +18,18 @@ spec:
             apiVersion: v1
             kind: Namespace
             metadata:
-              name: openshift-gitops-operator
+              name: openshift-pipelines
         - complianceType: musthave
           objectDefinition:
             apiVersion: operators.coreos.com/v1alpha1
             kind: Subscription
             metadata:
-              name: openshift-gitops-operator
-              namespace: openshift-gitops-operator
+              name: openshift-pipelines-operator
+              namespace: openshift-pipelines
             spec:
               channel: latest
               installPlanApproval: Automatic
-              name: openshift-gitops-operator
+              name: openshift-pipelines-operator-rh
               source: redhat-operators
               sourceNamespace: openshift-marketplace
-              startingCSV: openshift-gitops-operator.v1.17.0
+              startingCSV: openshift-pipelines-operator-rh.v1.19.3
