@@ -1,12 +1,12 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
-  name: gatekeeper-config
+  name: gitops-binding
 placementRef:
-  name: local-cluster
+  name: openshift-clusters-gitops
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:
-- name: gatekeeper-config
+- name: gitops-operator
   kind: Policy
   apiGroup: policy.open-cluster-management.io

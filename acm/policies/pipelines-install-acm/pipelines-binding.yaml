@@ -1,12 +1,12 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
-  name: gatekeeper-config
+  name: pipelines-binding
 placementRef:
-  name: local-cluster
+  name: openshift-clusters-pipelines
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:
-- name: gatekeeper-config
+- name: pipelines-operator
   kind: Policy
   apiGroup: policy.open-cluster-management.io

@@ -1,0 +1,104 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: required-annotations-opa
+  namespace: open-cluster-management-global-set
+spec:
+  disabled: false
+  remediationAction: inform
+  policy-templates:
+    - objectDefinition:
+        apiVersion: templates.gatekeeper.sh/v1
+        kind: ConstraintTemplate
+        metadata:
+          name: k8srequiredannotations
+        spec:
+          crd:
+            spec:
+              names:
+                kind: k8srequiredannotations
+              validation:
+                openAPIV3Schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                    annotations:
+                      type: array
+                      description: >-
+                        A list of annotations and values the object must specify.
+                      items:
+                        type: object
+                        properties:
+                          key:
+                            type: string
+                            description: >-
+                              The required annotation.
+                          allowedRegex:
+                            type: string
+                            description: >-
+                              If specified, a regular expression the annotation's value
+                              must match. The value must contain at least one match for
+                              the regular expression.
+          targets:
+            - target: admission.k8s.gatekeeper.sh
+              rego: |
+                package k8srequiredannotations
+                
+                violation[{"msg": msg, "details": {"missing_annotations": missing}}] {
+                    provided := {annotation | input.review.object.metadata.annotations[annotation]}
+                    required := {annotation | annotation := input.parameters.annotations[_].key}
+                    missing := required - provided
+                    count(missing) > 0
+                    msg := sprintf("you must provide annotation(s): %v", [missing])
+                }
+
+                violation[{"msg": msg}] {
+                  value := input.review.object.metadata.annotations[key]
+                  expected := input.parameters.annotations[_]
+                  expected.key == key
+                  expected.allowedRegex != ""
+                  not regex.match(expected.allowedRegex, value)
+                  msg := sprintf("Annotation <%v: %v> does not satisfy allowed regex: %v", [key, value, expected.allowedRegex])
+                }
+    - objectDefinition:
+        apiVersion: constraints.gatekeeper.sh/v1beta1
+        kind: k8srequiredannotations
+        metadata:
+          name: all-must-have-certain-set-of-annotations
+        spec:
+          enforcementAction: inform
+          match:
+            kinds:
+              - apiGroups: [""]
+                kinds: ["ServiceAccount"]
+          parameters:
+            message: "All service accounts must have `ownerName` and `ownerEmail` annotations."
+            annotations:
+              - key: ownerName
+                # Matches a name
+                allowedRegex: ^([A-Za-z ]+)
+              - key: ownerEmail
+                # Matches email address
+                allowedRegex: ^[a-z0-9-\.]+@([a-z0-9-]+\.)+[a-z0-9-]{2,4}
+---
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: Placement
+metadata:
+  name: required-annotations
+  namespace: open-cluster-management-global-set
+spec: {}
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: required-annotations
+  namespace: open-cluster-management-global-set
+placementRef:
+  name: required-annotations
+  apiGroup: cluster.open-cluster-management.io
+  kind: Placement
+subjects:
+  - name: required-annotations-opa
+    apiGroup: policy.open-cluster-management.io
+    kind: Policy
