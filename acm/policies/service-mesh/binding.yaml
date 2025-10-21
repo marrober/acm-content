@@ -1,0 +1,25 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: ossm3-binding-1
+placementRef:
+  name: openshift-clusters-ossm3
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+- name: ossm3-operator
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: ossm3-binding-2
+placementRef:
+  name: openshift-clusters-ossm3
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+- name: ossm3-additional-operators
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
