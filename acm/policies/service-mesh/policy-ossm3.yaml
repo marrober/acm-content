@@ -1,0 +1,186 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: ossm3-operator
+spec:
+  remediationAction: enforce
+  disabled: false
+  policy-templates:
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: kiali-operator
+      spec:
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: operators.coreos.com/v1alpha1
+            kind: Subscription
+            metadata:
+              name: openshift-kiali-operator
+              namespace: openshift-operators
+            spec:
+              channel: stable
+              installPlanApproval: Automatic
+              name: kiali-ossm
+              source: redhat-operators
+              sourceNamespace: openshift-marketplace
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: ossm3-operator
+      spec:
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: operators.coreos.com/v1alpha1
+            kind: Subscription
+            metadata:
+              name: servicemeshoperator3
+              namespace: openshift-operators
+            spec:
+              channel: stable
+              installPlanApproval: Automatic
+              name: servicemeshoperator3
+              source: redhat-operators
+              sourceNamespace: openshift-marketplace
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: namespaces
+      spec:
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: v1
+            kind: Namespace
+            metadata:
+              name: istio-system
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: v1
+            kind: Namespace
+            metadata:
+              name: istio-cni
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: istio-control-plane
+      spec:
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: sailoperator.io/v1
+            kind: Istio
+            metadata:
+              name: default
+            spec:
+              namespace: istio-system
+              updateStrategy:
+                type: InPlace
+                inactiveRevisionDeletionGracePeriodSeconds: 30
+              version: v1.26.2
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: istio-cni
+      spec:
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            kind: IstioCNI
+            apiVersion: sailoperator.io/v1
+            metadata:
+              name: default
+            spec:
+              namespace: istio-cni
+              version: v1.26.2
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: user-monitoring
+      spec:
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: v1
+            kind: ConfigMap
+            metadata:
+              name: cluster-monitoring-config
+              namespace: openshift-monitoring
+            data:
+              config.yaml: |
+                enableUserWorkload: true 
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: servicemonitor
+      spec:
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: monitoring.coreos.com/v1
+            kind: ServiceMonitor
+            metadata:
+              name: istiod-monitor
+              namespace: istio-system
+            spec:
+              targetLabels:
+              - app
+              selector:
+                matchLabels:
+                  istio: pilot
+              endpoints:
+              - port: http-monitoring
+                interval: 30s
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: role-binding
+      spec:
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: rbac.authorization.k8s.io/v1
+            kind: ClusterRoleBinding
+            metadata:
+              name: kiali-monitoring-rbac
+            roleRef:
+              apiGroup: rbac.authorization.k8s.io
+              kind: ClusterRole
+              name: cluster-monitoring-view
+            subjects:
+            - kind: ServiceAccount
+              name: kiali-service-account
+              namespace: istio-system
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: kiali
+      spec:
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: kiali.io/v1alpha1
+            kind: Kiali
+            metadata:
+              name: kiali-user-workload-monitoring
+              namespace: istio-system
+            spec:
+              external_services:
+                prometheus:
+                  auth:
+                    type: bearer
+                    use_kiali_token: true
+                  thanos_proxy:
+                    enabled: true
+                  url: https://thanos-querier.openshift-monitoring.svc.cluster.local:9091
