@@ -26,3 +26,17 @@ spec:
               name: openshift-gitops-operator
               source: redhat-operators
               sourceNamespace: openshift-marketplace
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: argo-rollout-manager
+      spec:
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: argoproj.io/v1alpha1
+            kind: RolloutManager
+            metadata:
+              name: rollout-manager
+              namespace: openshift-gitops
