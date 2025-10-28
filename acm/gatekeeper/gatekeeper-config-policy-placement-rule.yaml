@@ -1,9 +1,9 @@
 apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
-  name: local-cluster
+  name: hub-cluster
   labels:
-    policy: default-sa
+    policy: must-gather
 spec:
   clusterConditions:
   - type: ManagedClusterConditionAvailable

@@ -2,7 +2,7 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
   name: required-annotations-opa
-  namespace: open-cluster-management-global-set
+  namespace: 	rhacm-policies
 spec:
   disabled: false
   remediationAction: inform
@@ -17,6 +17,7 @@ spec:
             spec:
               names:
                 kind: k8srequiredannotations
+                namespace: 	rhacm-policies
               validation:
                 openAPIV3Schema:
                   type: object
@@ -82,22 +83,31 @@ spec:
                 # Matches email address
                 allowedRegex: ^[a-z0-9-\.]+@([a-z0-9-]+\.)+[a-z0-9-]{2,4}
 ---
-apiVersion: cluster.open-cluster-management.io/v1beta1
-kind: Placement
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
 metadata:
-  name: required-annotations
-  namespace: open-cluster-management-global-set
-spec: {}
+  name: local-cluster
+  namespace: 	rhacm-policies
+spec:
+  clusterConditions:
+  - status: "True"
+    type: ManagedClusterConditionAvailable
+  clusterSelector:
+    matchExpressions:
+    - key: local-cluster
+      operator: In
+      values:
+      - "true"
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
   name: required-annotations
-  namespace: open-cluster-management-global-set
+  namespace: 	rhacm-policies
 placementRef:
-  name: required-annotations
-  apiGroup: cluster.open-cluster-management.io
-  kind: Placement
+  name: local-cluster
+  apiGroup: apps.open-cluster-management.io
+  kind: PlacementRule
 subjects:
   - name: required-annotations-opa
     apiGroup: policy.open-cluster-management.io
