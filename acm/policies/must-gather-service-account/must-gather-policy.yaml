@@ -14,6 +14,30 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
+          name: must-gather-namespace
+        spec:  
+          evaluationInterval:
+            compliant: 60s
+            noncompliant: 60s
+          object-templates-raw: |
+            {{- range $ns:= (lookup "v1" "Namespace" "" "" "").items }} 
+              {{- if (contains "-must-gather-" $ns.metadata.name) }}
+                {{- if (gt (now.Sub (mustToDate "2006-01-02T15:04:05Z07:00" $ns.metadata.creationTimestamp)).Hours 0.2) }}
+                - complianceType: mustnothave
+                  objectDefinition:
+                    kind: Project
+                    apiVersion: project.openshift.io/v1
+                    metadata:
+                      name: {{ $ns.metadata.name }}
+                {{- end }}
+              {{- end }}  
+            {{- end }}
+          pruneObjectBehavior: DeleteIfCreated
+          severity: medium
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
           name: must-gather-sa
         spec:  
           evaluationInterval:
@@ -36,7 +60,6 @@ spec:
               {{- end }}  
             {{- end }}
           pruneObjectBehavior: DeleteIfCreated
-          remediationAction: inform
           severity: medium
     - objectDefinition:
         apiVersion: policy.open-cluster-management.io/v1
@@ -64,6 +87,5 @@ spec:
               {{- end }}  
             {{- end }}
           pruneObjectBehavior: DeleteIfCreated
-          remediationAction: inform
           severity: medium
   remediationAction: inform

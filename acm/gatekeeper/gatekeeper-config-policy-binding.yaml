@@ -1,20 +1,22 @@
-#apiVersion: policy.open-cluster-management.io/v1
-#kind: PlacementBinding
-#metadata:
-#  name: gatekeeper-policy
-#placementRef:
-#  name: hub-cluster
-#  kind: PlacementRule
-#  apiGroup: apps.open-cluster-management.io
-#subjects:
-#- name: gatekeeper-policy
-#  kind: Policy
-#  apiGroup: policy.open-cluster-management.io
-#---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: gatekeeper-policy
+  namespace: rhacm-policies
+placementRef:
+  name: hub-cluster
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+- name: gatekeeper-policy
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
+---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
   name: gatekeeper-config
+  namespace: rhacm-policies
 placementRef:
   name: hub-cluster
   kind: PlacementRule

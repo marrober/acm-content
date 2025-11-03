@@ -2,8 +2,7 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
   name: no-go-image
-  labels:
-    policy: no-go-image
+  namespace: rhacm-policies
 spec:
   remediationAction: enforce
   disabled: false
@@ -13,6 +12,7 @@ spec:
         kind: ConfigurationPolicy
         metadata:
           name: no-go-image
+          namespace: rhacm-policies
         spec:
           severity: medium
           namespaceSelector:
