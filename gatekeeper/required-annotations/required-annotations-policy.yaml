@@ -83,29 +83,13 @@ spec:
                 # Matches email address
                 allowedRegex: ^[a-z0-9-\.]+@([a-z0-9-]+\.)+[a-z0-9-]{2,4}
 ---
-apiVersion: apps.open-cluster-management.io/v1
-kind: PlacementRule
-metadata:
-  name: local-cluster
-  namespace: 	rhacm-policies
-spec:
-  clusterConditions:
-  - status: "True"
-    type: ManagedClusterConditionAvailable
-  clusterSelector:
-    matchExpressions:
-    - key: local-cluster
-      operator: In
-      values:
-      - "true"
----
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
   name: required-annotations
   namespace: 	rhacm-policies
 placementRef:
-  name: local-cluster
+  name: openshift-clusters
   apiGroup: apps.open-cluster-management.io
   kind: PlacementRule
 subjects:

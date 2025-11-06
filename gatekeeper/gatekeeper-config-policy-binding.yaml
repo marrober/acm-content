@@ -4,7 +4,7 @@ metadata:
   name: gatekeeper-policy
   namespace: rhacm-policies
 placementRef:
-  name: hub-cluster
+  name: openshift-clusters
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:
@@ -18,7 +18,7 @@ metadata:
   name: gatekeeper-config
   namespace: rhacm-policies
 placementRef:
-  name: hub-cluster
+  name: openshift-clusters
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:
