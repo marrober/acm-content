@@ -5,7 +5,7 @@ metadata:
   labels:
     policy: limit-range
 spec:
-  remediationAction: enforce
+  remediationAction: inform
   disabled: false
   policy-templates:
     - objectDefinition:
@@ -15,7 +15,6 @@ spec:
           name: policy-limitrange
         spec:
           severity: medium
-          remediationAction: enforce
           namespaceSelector:
             include:
             - 'test-*'

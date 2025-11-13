@@ -5,7 +5,7 @@ metadata:
   labels:
     policy: limit-range
 placementRef:
-  name: all-clusters
+  name: openshift-clusters
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:

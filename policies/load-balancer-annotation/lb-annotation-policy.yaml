@@ -2,6 +2,7 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
   name: load-balancer-annotation
+  namespace: rhacm-policies
   labels:
     policy: load-balancer-annotation
 spec:
@@ -17,7 +18,7 @@ spec:
           object-templates-raw: |   
             {{- range $ns:= (lookup "v1" "Namespace" "" "" "svc-nodeport=allowed").items }}   
               {{- range $svc := (lookup "v1" "Service" $ns.metadata.name "" "").items }}
-                {{- if (contains "LoadBalancer" $svc.spec.type) }}
+                {{- if (contains "ClusterIP" $svc.spec.type) }}
             - complianceType: musthave 
               objectDefinition:
                 kind: Service
@@ -30,4 +31,4 @@ spec:
                 {{- end }}
               {{- end }}
             {{- end }}
-          remediationAction: enforce
+          remediationAction: inform
