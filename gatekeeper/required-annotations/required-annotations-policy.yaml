@@ -17,7 +17,6 @@ spec:
             spec:
               names:
                 kind: k8srequiredannotations
-                namespace: 	rhacm-policies
               validation:
                 openAPIV3Schema:
                   type: object

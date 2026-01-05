@@ -71,6 +71,10 @@ spec:
                           - stackrox
                           - cluster-*
                           - cert-manager*
+                          - assisted-installer
+                          - default
+                          - default-broker
+                          - keycloak
                         processes:
                           - '*'
                   validatingWebhook: Enabled
