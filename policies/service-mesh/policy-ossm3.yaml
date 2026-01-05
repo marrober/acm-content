@@ -184,3 +184,43 @@ spec:
                   thanos_proxy:
                     enabled: true
                   url: https://thanos-querier.openshift-monitoring.svc.cluster.local:9091
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: open-telemetry-operator
+      spec:
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: operators.coreos.com/v1alpha1
+            kind: Subscription
+            metadata:
+              name: open-telemetry-operator
+              namespace: openshift-operators
+            spec:
+              channel: stable
+              installPlanApproval: Automatic
+              name: opentelemetry-product
+              source: redhat-operators
+              sourceNamespace: openshift-marketplace
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: tempo-operator
+      spec:
+        object-templates:
+        - complianceType: musthave
+          objectDefinition:
+            apiVersion: operators.coreos.com/v1alpha1
+            kind: Subscription
+            metadata:
+              name: tempo-operator
+              namespace: openshift-operators
+            spec:
+              channel: stable
+              installPlanApproval: Automatic
+              name: tempo-product
+              source: redhat-operators
+              sourceNamespace: openshift-marketplace

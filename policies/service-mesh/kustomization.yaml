@@ -3,6 +3,5 @@ kind: Kustomization
 
 resources:
 - policy-ossm3.yaml
-- policy-open-telemetry-tempo.yaml
 - placement.yaml
 - binding.yaml
