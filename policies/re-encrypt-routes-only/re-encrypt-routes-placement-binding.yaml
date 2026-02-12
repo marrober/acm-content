@@ -1,0 +1,31 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-policy-re-encrypt-routes
+  namespace: rhacm-policies
+  labels:
+    policy: re-encrypt-routes
+placementRef:
+  name: hub-cluster
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+- name: re-encrypt-routes
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+namespace: rhacm-policies
+metadata:
+  name: binding-re-encrypt-routes
+  labels:
+    policy: re-encrypt-routes
+placementRef:
+  name: hub-cluster
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+- name: re-encrypt-routes
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
