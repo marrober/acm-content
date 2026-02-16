@@ -3,10 +3,6 @@ kind: Policy
 metadata:
   name: re-encrypt-routes
   namespace: rhacm-policies
-  annotations:
-    policy.open-cluster-management.io/categories: CM Configuration Management
-    policy.open-cluster-management.io/controls: CM-2 Baseline Configuration
-    policy.open-cluster-management.io/standards: NIST SP 800-53
 spec:
   disabled: false
   policy-templates:
@@ -22,25 +18,21 @@ spec:
           remediationAction: inform 
           severity: low
           object-templates-raw: |
-            {{- range (lookup "v1" "Namespace" "" "").items }}
-              {{- $nsName := .metadata.name -}}
+            {{- $routes := (lookup "route.openshift.io/v1" "Route" "" "" "").items }}
+            {{- range $route := $routes }}
               {{- $skipNamespace := false -}}
               {{- range (list "installer" "devspaces" "default" "hive" "-system" "hypershift" "kube-" "-cluster" "multicluster" "open-cluster" "openshift" "rhacs" "stackrox" "trusted-" "rhacm-" ) -}}
-                {{- if contains . $nsName }} {{ $skipNamespace = true }} {{ end -}}
-              {{- end -}}
+                  {{- if contains . $route.metadata.namespace }} {{ $skipNamespace = true }} {{ end -}}
+              {{- end }}
               {{- if not $skipNamespace }}
-              {{- range (lookup "route.openshift.io/v1" "Route" $nsName "").items }}
-                {{- $routeName := .metadata.name -}}
-                - complianceType: musthave
+                {{- if not (contains (default "blank" $route.spec.tls.termination) "reencrypt") }}
+                - complianceType: mustnothave
                   objectDefinition:
-                    apiVersion: route.openshift.io/v1
                     kind: Route
+                    apiVersion: route.openshift.io/v1
                     metadata:
-                      name: '{{ $routeName }}'
-                      namespace: '{{ $nsName }}'
-                    spec:
-                      tls:
-                        termination: reencrypt
+                      name: {{ $route.metadata.name }}
+                      namespace: {{ $route.metadata.namespace }}
                 {{- end }}
               {{- end }}
             {{- end }}
