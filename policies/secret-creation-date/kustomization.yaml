@@ -5,6 +5,7 @@ resources:
 - ../common/
 - secret-creation-date-placement-binding.yaml
 - secret-creation-date-policy.yaml
+- pull-request-secrets.yaml
 patches:
 - patch: |-
     - op: add
