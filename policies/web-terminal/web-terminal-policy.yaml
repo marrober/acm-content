@@ -2,6 +2,7 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
   name: web-terminal
+  namespace: rhacm-policies
   labels:
     policy: web-terminal
 spec:
@@ -9,24 +10,19 @@ spec:
   disabled: false
   policy-templates:
     - objectDefinition:
-        apiVersion: policy.open-cluster-management.io/v1
-        kind: ConfigurationPolicy
+        apiVersion: policy.open-cluster-management.io/v1beta1
+        kind: OperatorPolicy
         metadata:
           name: web-terminal
         spec:
-          severity: medium
           remediationAction: enforce
-          object-templates:
-            - complianceType: musthave
-              objectDefinition:
-                apiVersion: operators.coreos.com/v1alpha1
-                kind: Subscription
-                metadata:
-                  name: web-terminal
-                  namespace: openshift-operators
-                spec:
-                  channel: fast
-                  installPlanApproval: Automatic
-                  name: web-terminal
-                  source: redhat-operators
-                  sourceNamespace: openshift-marketplace
+          complianceType: musthave
+          severity: medium
+          subscription:
+            channel: fast
+            name: web-terminal
+            namespace: openshift-operators
+            source: redhat-operators
+            sourceNamespace: openshift-marketplace
+            startingCSV: web-terminal.v1.11.0
+          upgradeApproval: None # None or Automatic
