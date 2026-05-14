@@ -25,13 +25,11 @@ spec:
               {{- if and (eq .spec.serviceAccountName "pipeline") (hasPrefix "dev-" .metadata.namespace)  }}
               - complianceType: mustnothave 
                 objectDefinition:
-                  kind: Pod
+                  kind: ServiceAccount
                   apiVersion: v1
                   metadata:
                     name: {{ .metadata.name }}
                     namespace: {{ .metadata.namespace }}
-                  spec:
-                    serviceAccountName: pipeline
               {{- end }}  
             {{- end }}
           remediationAction: inform
