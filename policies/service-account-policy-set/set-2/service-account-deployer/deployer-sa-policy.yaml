@@ -21,15 +21,19 @@ spec:
             noncompliant: "deployer service accounts are in use"
           severity: medium
           object-templates-raw: |   
-            {{- range $sa := (lookup "v1" "ServiceAccount" "" "" "").items }}
-              {{- if and (eq .spec.serviceAccountName "deployer") (hasPrefix "dev-" .metadata.namespace)  }}
-              - complianceType: mustnothave 
-                objectDefinition:
-                  kind: ServiceAccount
-                  apiVersion: v1
-                  metadata:
-                    name: {{ .metadata.name }}
-                    namespace: {{ .metadata.namespace }}
+            {{- range $namespace := (lookup "v1" "Namespace" "" "" "").items }}
+              {{- if (hasPrefix "dev-" $namespace.metadata.name)  }}
+                {{- range $sa := (lookup "v1" "ServiceAccount" $namespace.metadata.name "" "").items }}
+                  {{- if (eq $sa.metadata.name "deployer") }}
+                  - complianceType: mustnothave 
+                    objectDefinition:
+                      kind: ServiceAccount
+                      apiVersion: v1
+                      metadata:
+                        name: {{ .metadata.name }}
+                        namespace: {{ .metadata.namespace }}
+                  {{- end }}  
+                {{- end }}
               {{- end }}  
             {{- end }}
           remediationAction: inform
