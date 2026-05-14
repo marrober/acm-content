@@ -7,6 +7,5 @@ resources:
 - placement.yaml
 - policy-set.yaml
 - placement-binding.yaml
-- role-and-bindings.yaml
 
 
