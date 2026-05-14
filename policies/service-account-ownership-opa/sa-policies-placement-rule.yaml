@@ -2,8 +2,9 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
   name: dev-clusters
+  namespace: rhacm-policies
   labels:
-    policy: sa-ownership
+    policy: default-sa
 spec:
   clusterConditions:
   - type: ManagedClusterConditionAvailable

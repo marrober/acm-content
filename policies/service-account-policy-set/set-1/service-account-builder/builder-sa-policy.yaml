@@ -1,0 +1,37 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: 01-builder-sa
+  labels:
+    policy: builder-sa
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: builder-sa
+        spec:
+          evaluationInterval:
+            compliant: 60s
+            noncompliant: 60s
+          customMessage:
+            compliant: "No builder service accounts are in use"
+            noncompliant: "builder service accounts are in use"
+          severity: medium
+          object-templates-raw: |   
+            {{- range $pod := (lookup "v1" "Pod" "" "" "").items }}
+              {{- if and (eq .spec.serviceAccountName "builder") (hasPrefix "dev-" .metadata.namespace)  }}
+              - complianceType: mustnothave 
+                objectDefinition:
+                  kind: Pod
+                  apiVersion: v1
+                  metadata:
+                    name: {{ .metadata.name }}
+                    namespace: {{ .metadata.namespace }}
+                  spec:
+                    serviceAccountName: builder
+              {{- end }}  
+            {{- end }}
+          remediationAction: inform

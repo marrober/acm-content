@@ -1,0 +1,39 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: 04-pipeline-sa
+  labels:
+    policy: pipeline-sa
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: pipeline-sa
+        spec:
+          evaluationInterval:
+            compliant: 60s
+            noncompliant: 60s
+          customMessage:
+            compliant: "No pipeline service accounts are in use"
+            noncompliant: "pipeline service accounts are in use"
+          severity: medium
+          object-templates-raw: |   
+            {{- range $pod := (lookup "v1" "Pod" "" "" "").items }}
+              {{- if and (eq .spec.serviceAccountName "pipeline") (not (hasPrefix "kube-" .metadata.namespace)) (not (hasPrefix "openshift-" .metadata.namespace)) (not (hasPrefix "rhsso" .metadata.namespace)) (not (hasPrefix "quay-" .metadata.namespace)) (not (hasPrefix "open-cluster-" .metadata.namespace)) (not (hasPrefix "janus-argocd" .metadata.namespace)) (not (hasPrefix "backstage" .metadata.namespace)) }}
+                {{- if and (not (hasPrefix "knative-" .metadata.namespace)) (not (hasPrefix "trusted-profile-" .metadata.namespace)) (not (hasPrefix "cyclonedx" .metadata.namespace)) (not (hasPrefix "trusted-artifact-" .metadata.namespace)) (not (hasPrefix "keycloak-system" .metadata.namespace)) }}
+              - complianceType: mustnothave 
+                objectDefinition:
+                  kind: Pod
+                  apiVersion: v1
+                  metadata:
+                    name: {{ .metadata.name }}
+                    namespace: {{ .metadata.namespace }}
+                  spec:
+                    serviceAccountName: pipeline
+                {{- end }}  
+              {{- end }}  
+            {{- end }}
+          remediationAction: inform

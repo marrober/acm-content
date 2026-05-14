@@ -1,0 +1,14 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-policy-pipeline-sa
+  labels:
+    policy: pipeline-sa
+placementRef:
+  name: dev-clusters
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+- name: 04-pipeline-sa
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io

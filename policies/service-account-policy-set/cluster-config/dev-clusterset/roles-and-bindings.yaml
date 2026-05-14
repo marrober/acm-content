@@ -1,0 +1,50 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: policies-dev-edit
+  namespace: policies-dev
+subjects:
+  - kind: User
+    apiGroup: rbac.authorization.k8s.io
+    name: joe
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: edit
+---
+apiVersion: cluster.open-cluster-management.io/v1beta2
+kind: ManagedClusterSetBinding
+metadata:
+  creationTimestamp: "2026-05-13T10:35:48Z"
+  generation: 1
+  name: dev-clusters-mcsb
+  namespace: policies-dev
+spec:
+  clusterSet: dev-clusters
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: joe-dev-clusters-admin
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: open-cluster-management:managedclusterset:admin:dev-clusters
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: joe
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: rhacm-edit-policy-joe
+  namespace: policies-dev
+subjects:
+  - kind: User
+    apiGroup: rbac.authorization.k8s.io
+    name: joe
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: rhacm-edit-policy

@@ -1,29 +1,27 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
-  name: binding-policy-policy-sa-ownership
-  labels:
-    policy: sa-ownership
+  name: gatekeeper-policy
+  namespace: rhacm-policies
 placementRef:
   name: dev-clusters
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:
-- name: policy-sa-ownership
+- name: gatekeeper-policy
   kind: Policy
   apiGroup: policy.open-cluster-management.io
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
-  name: binding-policy-sa-ownership
-  labels:
-    policy: sa-ownership
+  name: gatekeeper-config
+  namespace: rhacm-policies
 placementRef:
   name: dev-clusters
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:
-- name: policy-sa-ownership
+- name: gatekeeper-config
   kind: Policy
   apiGroup: policy.open-cluster-management.io

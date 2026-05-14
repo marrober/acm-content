@@ -1,0 +1,13 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: service-accounts-set-2-placement
+  namespace: policies-build
+placementRef:
+  name: service-accounts-set-2-placement
+  apiGroup: cluster.open-cluster-management.io
+  kind: Placement
+subjects:
+  - name: service-accounts-set-2
+    apiGroup: policy.open-cluster-management.io
+    kind: PolicySet

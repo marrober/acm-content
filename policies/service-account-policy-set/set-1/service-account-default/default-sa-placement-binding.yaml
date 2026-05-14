@@ -9,6 +9,6 @@ placementRef:
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:
-- name: default-sa
+- name: 02-default-sa
   kind: Policy
   apiGroup: policy.open-cluster-management.io

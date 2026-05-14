@@ -1,0 +1,9 @@
+apiVersion: policy.open-cluster-management.io/v1beta1
+kind: PolicySet
+metadata:
+  name: service-accounts-set-1
+  namespace: policies-dev
+spec:
+  policies:
+    - 01-builder-sa
+    - 02-default-sa
