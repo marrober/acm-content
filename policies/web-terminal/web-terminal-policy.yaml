@@ -10,7 +10,7 @@ spec:
   disabled: false
   policy-templates:
     - objectDefinition:
-        apiVersion: policy.open-cluster-management.io/v1beta1
+        apiVersion: policy.open-cluster-management.io/v1
         kind: OperatorPolicy
         metadata:
           name: web-terminal
