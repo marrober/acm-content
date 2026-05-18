@@ -19,7 +19,7 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: gitops-mcl-binding-patch-binding
+  name: gitops-mcs-biding-argo-sa
   namespace: policies-build
 subjects:
 - kind: ServiceAccount
