@@ -1,0 +1,55 @@
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: rhacm-edit-policy
+rules:
+  - verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+    apiGroups:
+      - policy.open-cluster-management.io
+    resources:
+      - policies
+      - placementbindings
+      - policyautomations
+      - policysets
+  - verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch      
+    apiGroups:
+      - cluster.open-cluster-management.io    
+    resources: 
+      - placements
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: rhacm-view-policy
+rules:
+  - verbs:
+      - get
+      - list
+      - watch
+    apiGroups:
+      - policy.open-cluster-management.io
+    resources:
+      - policies
+      - policysets
+  - verbs:
+      - get
+      - list
+      - watch      
+    apiGroups:
+      - cluster.open-cluster-management.io    
+    resources: 
+      - placements
