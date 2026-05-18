@@ -1,12 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: build-policies
+  name: policy-management
   namespace: openshift-gitops
 spec:
   project: default
   destination:
-    namespace: policies-build
+    namespace: rhacm-policies
     server: https://kubernetes.default.svc
   ignoreDifferences:
   - group: argoproj.io
@@ -30,7 +30,7 @@ spec:
     - /spec/host
     kind: Route
   source:
-    path: policies/policy-set/cluster-config/build-clusterset
+    path: policies/policy-set/gitops
     targetRevision: main
     repoURL: https://github.com/marrober/acm-content.git
   syncPolicy:
