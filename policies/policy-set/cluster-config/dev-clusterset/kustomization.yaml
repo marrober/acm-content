@@ -7,3 +7,4 @@ resources:
 - 03-role-binding-policy-resource-edit.yaml	
 - 04-managed-clusterset-binding.yaml		
 - 05-managed-clusterset-admin-binding.yaml
+- 06-role-binding-view-managed-clusters.yaml
