@@ -2,7 +2,7 @@ apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
   name: service-accounts-set-2-placement
-  namespace: policies-build
+  namespace: policies-dev
 placementRef:
   name: service-accounts-set-2-placement
   apiGroup: cluster.open-cluster-management.io

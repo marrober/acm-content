@@ -8,6 +8,6 @@ patches:
 - patch: |-
     - op: add
       path: /metadata/namespace
-      value: policies-build
+      value: policies-dev
   target:
     labelSelector: "policy=pipeline-sa"

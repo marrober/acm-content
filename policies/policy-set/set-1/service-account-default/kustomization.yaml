@@ -8,6 +8,6 @@ patches:
 - patch: |-
     - op: add
       path: /metadata/namespace
-      value: policies-dev
+      value: policies-build
   target:
     labelSelector: "policy=default-sa"

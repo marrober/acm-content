@@ -2,7 +2,7 @@ apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: Placement
 metadata:
   name: service-accounts-set-2-placement
-  namespace: policies-build
+  namespace: policies-dev
 spec:
   tolerations:
     - key: cluster.open-cluster-management.io/unreachable
