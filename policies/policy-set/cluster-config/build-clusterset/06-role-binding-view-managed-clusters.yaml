@@ -1,13 +1,13 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: rhacm-edit-policy-joe
-  namespace: policies-dev
+  name: greg-view-local-cluster-cluster-namespace
+  namespace: local-cluster
 subjects:
   - kind: User
     apiGroup: rbac.authorization.k8s.io
-    name: joe
+    name: greg
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: rhacm-edit-policy
+  name: view

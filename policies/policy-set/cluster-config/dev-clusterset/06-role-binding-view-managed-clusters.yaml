@@ -1,8 +1,8 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: rhacm-edit-policy-joe
-  namespace: policies-dev
+  name: joe-view-development-cluster-namespace
+  namespace: development
 subjects:
   - kind: User
     apiGroup: rbac.authorization.k8s.io
@@ -10,4 +10,4 @@ subjects:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: rhacm-edit-policy
+  name: view
