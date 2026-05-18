@@ -1,7 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: gitops-mcs-binding-argo-sa
+  name: gitops-mcs-binding-argo-sa-bind
   namespace: policies-build
 subjects:
 - kind: ServiceAccount
@@ -15,7 +15,7 @@ roleRef:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: gitops-mcs-binding-argo-sa
+  name: gitops-mcs-binding-argo-sa-admin
   namespace: policies-build
 subjects:
 - kind: ServiceAccount
