@@ -11,17 +11,3 @@ roleRef:
   kind: ClusterRole
   name: open-cluster-management:cluster-manager-admin
   apiGroup: rbac.authorization.k8s.io
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: crb-gitops-mcs-binding-argo-sa-admin
-  namespace: policies-build
-subjects:
-- kind: ServiceAccount
-  name: openshift-gitops-argocd-application-controller
-  namespace: openshift-gitops
-roleRef:
-  kind: ClusterRole
-  name: open-cluster-management:managedclusterset:admin:dev-clusters
-  apiGroup: rbac.authorization.k8s.io
