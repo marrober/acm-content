@@ -1,0 +1,39 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: 04-pipeline-sa
+  labels:
+    policy: pipeline-sa
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: pipeline-sa
+        spec:
+          evaluationInterval:
+            compliant: 60s
+            noncompliant: 60s
+          customMessage:
+            compliant: "No pipeline service accounts are in use"
+            noncompliant: "pipeline service accounts are in use"
+          severity: medium
+          object-templates-raw: |   
+            {{- range $namespace := (lookup "v1" "Namespace" "" "" "").items }}
+              {{- if (hasPrefix "dev-" $namespace.metadata.name)  }}
+                {{- range $sa := (lookup "v1" "ServiceAccount" $namespace.metadata.name "" "").items }}
+                  {{- if (eq $sa.metadata.name "pipeline") }}
+                  - complianceType: mustnothave 
+                    objectDefinition:
+                      kind: ServiceAccount
+                      apiVersion: v1
+                      metadata:
+                        name: {{ .metadata.name }}
+                        namespace: {{ .metadata.namespace }}
+                  {{- end }}  
+                {{- end }}
+              {{- end }}  
+            {{- end }}
+          remediationAction: inform

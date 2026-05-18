@@ -1,0 +1,13 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: generate-cm-binding
+  namespace: rhacm-policies
+placementRef:
+  name: dev-clusters
+  apiGroup: cluster.open-cluster-management.io
+  kind: Placement
+subjects:
+  - name: cm-generation-job-policy
+    apiGroup: policy.open-cluster-management.io
+    kind: Policy

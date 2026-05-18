@@ -1,0 +1,101 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: dev-spaces-che-cluster
+  namespace: rhacm-policies
+spec:
+  remediationAction: enforce
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: devspaces-che-cluster-installation
+        spec:
+          remediationAction: enforce
+          severity: medium
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: v1
+                kind: Namespace
+                metadata:
+                  name: openshift-devspaces
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: org.eclipse.che/v2
+                kind: CheCluster
+                metadata:
+                  name: devspaces
+                  namespace: openshift-devspaces
+                spec:
+                  components:
+                    cheServer:
+                      debug: false
+                      logLevel: INFO
+                    dashboard:
+                      logLevel: ERROR
+                    devWorkspace: {}
+                    devfileRegistry: {}
+                    imagePuller:
+                      enable: false
+                      spec: {}
+                    metrics:
+                      enable: true
+                    pluginRegistry: {}
+                  containerRegistry: {}
+                  devEnvironments:
+                    startTimeoutSeconds: 300
+                    security: {}
+                    secondsOfRunBeforeIdling: -1
+                    maxNumberOfWorkspacesPerUser: -1
+                    disableContainerRunCapabilities: false
+                    containerBuildConfiguration:
+                      openShiftSecurityContextConstraint: container-build
+                    containerRunConfiguration:
+                      containerSecurityContext:
+                        allowPrivilegeEscalation: true
+                        capabilities:
+                          add:
+                            - SETGID
+                            - SETUID
+                        procMount: Unmasked
+                      openShiftSecurityContextConstraint: container-run
+                      workspacesPodAnnotations:
+                        io.kubernetes.cri-o.Devices: '/dev/fuse,/dev/net/tun'
+                    ignoredUnrecoverableEvents:
+                      - FailedScheduling
+                    defaultNamespace:
+                      autoProvision: true
+                      template: <username>-devspaces
+                    secondsOfInactivityBeforeIdling: 1800
+                    storage:
+                      pvcStrategy: per-user
+                  gitServices: {}
+                  networking:
+                    auth:
+                      gateway:
+                        configLabels:
+                          app: che
+                          component: che-gateway-config
+                        kubeRbacProxy:
+                          logLevel: 0
+                        oAuthProxy:
+                          cookieExpireSeconds: 86400
+                        traefik:
+                          logLevel: INFO
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-install-devspaces-che-cluster
+  namespace: rhacm-policies
+placementRef:
+  name: openshift-clusters
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+- name: dev-spaces-che-cluster
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io

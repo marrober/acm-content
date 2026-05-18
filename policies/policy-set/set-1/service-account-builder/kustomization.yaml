@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- builder-sa-placement-binding.yaml
+- builder-sa-policy.yaml
+patches:
+- patch: |-
+    - op: add
+      path: /metadata/namespace
+      value: policies-dev
+  target:
+    labelSelector: "policy=builder-sa"

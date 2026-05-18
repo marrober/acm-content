@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- 01-namespace.yaml				
+- 02-role-binding-namespace-view.yaml	
+- 03-role-binding-policy-resource-edit.yaml	
+- 04-managed-clusterset-binding.yaml		
+- 05-managed-clusterset-admin-binding.yaml

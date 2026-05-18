@@ -1,0 +1,9 @@
+apiVersion: policy.open-cluster-management.io/v1beta1
+kind: PolicySet
+metadata:
+  name: service-accounts-set-2
+  namespace: policies-build
+spec:
+  policies:
+    - 03-deployer-sa
+    - 04-pipeline-sa

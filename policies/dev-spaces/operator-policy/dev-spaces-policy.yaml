@@ -1,0 +1,41 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: dev-spaces
+  namespace: rhacm-policies
+spec:
+  remediationAction: enforce
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1beta1
+        kind: OperatorPolicy
+        metadata:
+          name: install-devspaces-operator
+          namespace: rhacm-policies 
+        spec:
+          remediationAction: enforce
+          complianceType: musthave
+          severity: medium
+          subscription:
+            channel: stable
+            name: devspaces
+            namespace: openshift-operators
+            source: redhat-operators
+            sourceNamespace: openshift-marketplace
+            startingCSV: devspacesoperator.v3.26.0
+          upgradeApproval: Automatic # None or Automatic
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-install-devspaces-operator
+  namespace: rhacm-policies
+placementRef:
+  name: openshift-clusters
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+- name: dev-spaces
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io

@@ -1,0 +1,31 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-policy-must-gather
+  namespace: rhacm-policies
+  labels:
+    policy: must-gather
+placementRef:
+  name: hub-cluster
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+- name: policy-must-gather
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+namespace: rhacm-policies
+metadata:
+  name: binding-policy-must-gather-namespace
+  labels:
+    policy: must-gather
+placementRef:
+  name: hub-cluster
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+- name: policy-must-gather-namespace
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io

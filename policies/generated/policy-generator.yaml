@@ -1,0 +1,14 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: all-cluster-policies
+policyDefaults:
+  namespace: rhacm-policies
+policies:
+  - name: limit-range
+    manifests:
+      - path: limit-range.yaml
+    remediationAction: enforce
+    placement:
+      clusterSelectors:
+        all-clusters: "true"

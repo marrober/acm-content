@@ -1,0 +1,40 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: rhacm-view-policy-sam-dev
+  namespace: policies-dev
+subjects:
+  - kind: User
+    apiGroup: rbac.authorization.k8s.io
+    name: sam
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: rhacm-view-policy
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: rhacm-view-policy-sam-build
+  namespace: policies-build
+subjects:
+  - kind: User
+    apiGroup: rbac.authorization.k8s.io
+    name: sam
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: rhacm-view-policy
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: view-dev-clusters
+subjects:
+  - kind: User
+    apiGroup: rbac.authorization.k8s.io
+    name: sam
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: 'open-cluster-management:managedclusterset:view:dev-clusters'

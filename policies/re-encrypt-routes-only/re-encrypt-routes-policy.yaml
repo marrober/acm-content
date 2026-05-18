@@ -1,0 +1,38 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: re-encrypt-routes
+  namespace: rhacm-policies
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: re-encrypt-routes
+        spec:
+          evaluationInterval:
+            compliant: 60s
+            noncompliant: 60s
+          remediationAction: inform 
+          severity: low
+          object-templates-raw: |
+            {{- $routes := (lookup "route.openshift.io/v1" "Route" "" "" "").items }}
+            {{- range $route := $routes }}
+              {{- $skipNamespace := false -}}
+              {{- range (list "installer" "devspaces" "default" "hive" "-system" "hypershift" "kube-" "-cluster" "multicluster" "open-cluster" "openshift" "rhacs" "stackrox" "trusted-" "rhacm-" ) -}}
+                  {{- if contains . $route.metadata.namespace }} {{ $skipNamespace = true }} {{ end -}}
+              {{- end }}
+              {{- if not $skipNamespace }}
+                {{- if not (contains (default "blank" $route.spec.tls.termination) "reencrypt") }}
+                - complianceType: mustnothave
+                  objectDefinition:
+                    kind: Route
+                    apiVersion: route.openshift.io/v1
+                    metadata:
+                      name: {{ $route.metadata.name }}
+                      namespace: {{ $route.metadata.namespace }}
+                {{- end }}
+              {{- end }}
+            {{- end }}
