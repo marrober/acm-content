@@ -1,7 +1,7 @@
 apiVersion: cluster.open-cluster-management.io/v1beta2
 kind: ManagedClusterSetBinding
 metadata:
-  name: dev-clusters
+  name: build-clusters
   namespace: policies-build
 spec:
-  clusterSet: dev-clusters
+  clusterSet: build-clusters
