@@ -1,0 +1,51 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: istio-control-plane-mgmt
+  labels:
+    policy: istio-control-plane-mgmt
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: istio-control-plane-mgmt
+        spec:
+          evaluationInterval:
+            compliant: 60s
+            noncompliant: 60s
+          customMessage:
+            noncompliant: "Rogue istio control plane found"
+          severity: medium
+          object-templates-raw: |   
+            {{- range $namespace := (lookup "v1" "Namespace" "" "" "").items }}
+              {{- if (eq "istio-system" $namespace.metadata.name) }}
+                {{- range $IstioControlPlane := (lookup "sailoperator.io/v1" "Istio" $namespace.metadata.name "" "").items }}
+                  {{- if ((eq "default" $IstioControlPlane.metadata.name)) }}
+                  - complianceType: musthave 
+                    objectDefinition:
+                      kind: Istio
+                      apiVersion: sailoperator.io/v1
+                      metadata:
+                        name: {{ .metadata.name }}
+                        namespace: {{ .metadata.namespace }}
+                      spec:
+                        updateStrategy:
+                          type: InPlace
+                          inactiveRevisionDeletionGracePeriodSeconds: 30
+                        version: v1.26.2
+                  {{- else }}
+                  - complianceType: mustnothave 
+                    objectDefinition:
+                      kind: Istio
+                      apiVersion: sailoperator.io/v1
+                      metadata:
+                        name: {{ .metadata.name }}
+                        namespace: {{ .metadata.namespace }}
+                  {{- end }}
+                {{- end }}  
+              {{- end }}  
+            {{- end }}
+          remediationAction: inform

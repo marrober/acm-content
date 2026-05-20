@@ -3,5 +3,6 @@ kind: Kustomization
 
 resources:
 - policy-ossm3.yaml
+#- istio-control-plane-management.yaml
 - placement.yaml
 - binding.yaml

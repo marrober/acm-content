@@ -4,7 +4,6 @@ metadata:
   name: ossm3-operator
   namespace: rhacm-policies
 spec:
-  remediationAction: enforce
   disabled: false
   policy-templates:
   - objectDefinition:
@@ -27,6 +26,7 @@ spec:
               name: kiali-ossm
               source: redhat-operators
               sourceNamespace: openshift-marketplace
+        remediationAction: enforce
   - objectDefinition:
       apiVersion: policy.open-cluster-management.io/v1
       kind: ConfigurationPolicy
@@ -47,6 +47,7 @@ spec:
               name: servicemeshoperator3
               source: redhat-operators
               sourceNamespace: openshift-marketplace
+        remediationAction: enforce
   - objectDefinition:
       apiVersion: policy.open-cluster-management.io/v1
       kind: ConfigurationPolicy
@@ -66,11 +67,37 @@ spec:
             kind: Namespace
             metadata:
               name: istio-cni
+        remediationAction: enforce
   - objectDefinition:
       apiVersion: policy.open-cluster-management.io/v1
       kind: ConfigurationPolicy
       metadata:
-        name: istio-control-plane
+        name: istio-control-plane-mgmt
+      spec:
+        evaluationInterval:
+          compliant: 20s
+          noncompliant: 20s
+        customMessage:
+          noncompliant: "Rogue istio control plane found"
+        severity: medium
+        object-templates-raw: |   
+          {{- range $IstioControlPlane := (lookup "sailoperator.io/v1" "Istio" "istio-system" "" "").items }}
+            {{- if (not (eq "default" $IstioControlPlane.metadata.name)) }}
+              - complianceType: mustnothave 
+                objectDefinition:
+                  kind: Istio
+                  apiVersion: sailoperator.io/v1
+                  metadata:
+                    name: {{ .metadata.name }}
+                    namespace: {{ .metadata.namespace }}
+            {{- end }}  
+          {{- end }}
+        remediationAction: enforce
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: istio-control-plane-creation
       spec:
         object-templates:
         - complianceType: musthave
@@ -85,6 +112,7 @@ spec:
                 type: InPlace
                 inactiveRevisionDeletionGracePeriodSeconds: 30
               version: v1.26.2
+        remediationAction: enforce
   - objectDefinition:
       apiVersion: policy.open-cluster-management.io/v1
       kind: ConfigurationPolicy
@@ -101,6 +129,7 @@ spec:
             spec:
               namespace: istio-cni
               version: v1.26.2
+        remediationAction: enforce
   - objectDefinition:
       apiVersion: policy.open-cluster-management.io/v1
       kind: ConfigurationPolicy
@@ -118,6 +147,7 @@ spec:
             data:
               config.yaml: |
                 enableUserWorkload: true 
+        remediationAction: enforce
   - objectDefinition:
       apiVersion: policy.open-cluster-management.io/v1
       kind: ConfigurationPolicy
@@ -141,6 +171,7 @@ spec:
               endpoints:
               - port: http-monitoring
                 interval: 30s
+        remediationAction: enforce
   - objectDefinition:
       apiVersion: policy.open-cluster-management.io/v1
       kind: ConfigurationPolicy
@@ -162,6 +193,7 @@ spec:
             - kind: ServiceAccount
               name: kiali-service-account
               namespace: istio-system
+        remediationAction: enforce
   - objectDefinition:
       apiVersion: policy.open-cluster-management.io/v1
       kind: ConfigurationPolicy
@@ -185,6 +217,7 @@ spec:
                   thanos_proxy:
                     enabled: true
                   url: https://thanos-querier.openshift-monitoring.svc.cluster.local:9091
+        remediationAction: enforce
   - objectDefinition:
       apiVersion: policy.open-cluster-management.io/v1
       kind: ConfigurationPolicy
@@ -205,6 +238,7 @@ spec:
               name: opentelemetry-product
               source: redhat-operators
               sourceNamespace: openshift-marketplace
+        remediationAction: enforce
   - objectDefinition:
       apiVersion: policy.open-cluster-management.io/v1
       kind: ConfigurationPolicy
@@ -225,3 +259,4 @@ spec:
               name: tempo-product
               source: redhat-operators
               sourceNamespace: openshift-marketplace
+        remediationAction: enforce

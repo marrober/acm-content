@@ -1,7 +1,7 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: joe-view-development-cluster-namespace
+  name: joe-view-development-namespace
   namespace: development
 subjects:
   - kind: User
