@@ -29,5 +29,8 @@ spec:
                   limits:
                   - type: Container
                     default:
+                      cpu: '{{ if eq (index .ManagedClusterLabels "environment") "dev"}}500m{{ else }}1000m{{ end }}'
+                      memory: '{{ if eq (index .ManagedClusterLabels "environment") "dev"}}512Mi{{ else }}1024Mi{{ end }}'
+                    defaultRequest:
                       cpu: 600m
-                      memory: 512Mi
+                      memory: 512Mi                    

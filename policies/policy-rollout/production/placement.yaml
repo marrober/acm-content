@@ -16,8 +16,8 @@ spec:
   - requiredClusterSelector:
       labelSelector:
         matchExpressions:
-          - key: production
+          - key: environment
             operator: In
             values:
-            - "true"
+            - "production"
         
