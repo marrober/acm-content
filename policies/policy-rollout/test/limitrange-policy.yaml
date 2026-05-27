@@ -17,7 +17,7 @@ spec:
           severity: medium
           namespaceSelector:
             include: ['test-*']
-          object-templates:
+          object-templates_raw:
             - complianceType: musthave
               recreateOption: IfRequired
               objectDefinition:
@@ -29,8 +29,8 @@ spec:
                   limits:
                   - type: Container
                     default:
-                      cpu: '{{ hub (if eq ((index .ManagedClusterLabels "environment") "dev") "500m" "1000m") hub }}'
-                      memory: '{{ hub (if eq ((index .ManagedClusterLabels "environment") "dev") "512Mi" "1024Mi") hub }}'
+                      cpu: '{{ hub if eq ((index .ManagedClusterLabels "environment") "dev" }}500m{{ hub else }} 1000m{{ hub end }}'
+                      #memory: '{{ hub if eq ((index .ManagedClusterLabels "environment") "dev") "512Mi" "1024Mi") hub }}'
                     defaultRequest:
                       cpu: '300m'
                       memory: '200Mi'                    
