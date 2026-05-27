@@ -17,7 +17,7 @@ spec:
           severity: medium
           namespaceSelector:
             include: ['test-*']
-          object-templates-raw:
+          object-templates:
             - complianceType: musthave
               recreateOption: IfRequired
               objectDefinition:
@@ -33,4 +33,14 @@ spec:
                       #memory: '{{ hub if eq ((index .ManagedClusterLabels "environment") "dev") "512Mi" "1024Mi") hub }}'
                     defaultRequest:
                       cpu: '300m'
-                      memory: '200Mi'                    
+                      memory: '200Mi'      
+            - complianceType: musthave
+              recreateOption: IfRequired
+              objectDefinition:
+                apiVersion: v1
+                kind: ConfigMap
+                metadata:
+                  name: default-limit-range-cm
+                  namespace: test-1
+                data:
+                  cluster-environment: '{{hub .ManagedClusterLabels.environment hub}}'
