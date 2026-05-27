@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: limit-range-policy
+  namespace: openshift-gitops
+spec:
+  generators:
+    - git:
+      repoURL : https://github.com/marrober/acm-content.git
+      revision: HEAD
+      directories: 
+      - path: policies/policy-rollout/*
+  template:
+    metadata:
+      name: 'policy-{{path.basename}}'
+    spec:
+      project: default
+      destination:
+        namespace: rhacm-policies
+        server: https://kubernetes.default.svc
+      source:
+        repoURL: https://github.com/marrober/acm-content.git
+        path: {{path}}
+        targetRevision: HEAD
+      syncPolicy:
+        syncOptions:
+        - CreateNamespace=true
+        retry:
+          limit: 5 
+          backoff:
+            duration: 5s
+            factor: 2 
+            maxDuration: 30s
