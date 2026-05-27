@@ -29,11 +29,7 @@ spec:
                   limits:
                   - type: Container
                     default:
-                    {{hub- if .ManagedClusterLabels.environment "dev" -hub}}
-                    cpu: '500m'
-                    {{hub- else -hub}}
-                    cpu: '1000m'
-                      #memory: '{{ hub if eq ((index .ManagedClusterLabels "environment") "dev") "512Mi" "1024Mi") hub }}'
+                      cpu: '1000m'
                     defaultRequest:
                       cpu: '300m'
                       memory: '200Mi'      
@@ -46,7 +42,4 @@ spec:
                   name: default-limit-range-cm
                   namespace: test-1
                 data:
-                  {{hub- if .ManagedClusterLabels.environment "dev" -hub}}
-                  cluster-environment: "its dev !"
-                  {{hub- else -hub}}
-                  cluster-environment: "not dev"
+                  cluster-environment: '{{hub- if eq .ManagedClusterLabels.environment "dev" -hub}}its dev !{{hub- else -hub}}not dev{{hub- end -hub}}'
