@@ -17,7 +17,7 @@ spec:
           severity: medium
           namespaceSelector:
             include: ['test-*']
-          object-templates_raw:
+          object-templates-raw:
             - complianceType: musthave
               recreateOption: IfRequired
               objectDefinition:
