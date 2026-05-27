@@ -29,7 +29,7 @@ spec:
                   limits:
                   - type: Container
                     default:
-                      cpu: '1000m'
+                      cpu: '{{hub- if eq .ManagedClusterLabels.environment "dev" -hub}}500m{{hub- else -hub}}1000m{{hub- end -hub}}'
                     defaultRequest:
                       cpu: '300m'
                       memory: '200Mi'      
