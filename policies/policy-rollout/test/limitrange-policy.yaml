@@ -30,9 +30,9 @@ spec:
                   - type: Container
                     default:
                     {{hub- if .ManagedClusterLabels.environment "dev" -hub}}
-                    cpu: 500m
+                    cpu: '500m'
                     {{hub- else -hub}}
-                    cpu: 1000m
+                    cpu: '1000m'
                       #memory: '{{ hub if eq ((index .ManagedClusterLabels "environment") "dev") "512Mi" "1024Mi") hub }}'
                     defaultRequest:
                       cpu: '300m'
