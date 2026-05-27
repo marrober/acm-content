@@ -9,10 +9,10 @@ spec:
         repoURL : https://github.com/marrober/acm-content.git
         revision: HEAD
         directories: 
-          - path: policies/policy-rollout/
+          - path: policies/policy-rollout/*
   template:
     metadata:
-      name: 'policy-{{path.basename}}'
+      name: 'ACM-{{path.basename}}'
     spec:
       project: default
       destination:
