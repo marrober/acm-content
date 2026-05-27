@@ -12,7 +12,7 @@ spec:
           - path: policies/policy-rollout/*
   template:
     metadata:
-      name: 'ACM-{{path.basename}}'
+      name: 'acm-{{path.basename}}'
     spec:
       project: default
       destination:
