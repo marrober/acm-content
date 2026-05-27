@@ -1,9 +1,9 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: policy-limitrange-production
+  name: policy-limitrange
   labels:
-    policy: limit-range-production
+    policy: limit-range
 spec:
   remediationAction: enforce
   disabled: false
@@ -12,7 +12,7 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: policy-limitrange-production
+          name: policy-limitrange
         spec:
           severity: medium
           namespaceSelector:
@@ -29,8 +29,8 @@ spec:
                   limits:
                   - type: Container
                     default:
-                      cpu: '1000m'
-                      memory: '1000Mi'
+                      cpu: '500m'
+                      memory: '500Mi'
                     defaultRequest:
                       cpu: '300m'
                       memory: '200Mi'      

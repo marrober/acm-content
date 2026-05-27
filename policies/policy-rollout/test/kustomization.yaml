@@ -3,11 +3,33 @@ kind: Kustomization
 resources:
 - limitrange-placement-binding.yaml
 - placement.yaml
-- limitrange-policy.yaml
+- ../policy
 patches:
-- patch: |-
-    - op: add
-      path: /metadata/namespace
-      value: rhacm-policies
-  target:
-    labelSelector: "policy=limit-range-test"
+  - target:
+      group: policy.open-cluster-management.io
+      version: v1
+      kind: Policy
+      name: policy-limitrange
+    patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: rhacm-policies
+  - target:
+      group: policy.open-cluster-management.io
+      version: v1
+      kind: Policy
+      name: policy-limitrange
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: policy-limitrange-test
+  - target:
+      group: policy.open-cluster-management.io
+      version: v1
+      kind: Policy
+      name: policy-limitrange
+    patch: |-
+      - op: replace
+        path: /spec/policy-templates/0/objectDefinition/metadata/name
+        value: policy-limitrange-test
+
