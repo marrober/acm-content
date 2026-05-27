@@ -22,7 +22,7 @@ patches:
     patch: |-
       - op: replace
         path: /metadata/name
-        value: policy-limitrange-test
+        value: policy-limitrange-production
   - target:
       group: policy.open-cluster-management.io
       version: v1
@@ -31,4 +31,4 @@ patches:
     patch: |-
       - op: replace
         path: /spec/policy-templates/0/objectDefinition/metadata/name
-        value: policy-limitrange-test
+        value: policy-limitrange-production
