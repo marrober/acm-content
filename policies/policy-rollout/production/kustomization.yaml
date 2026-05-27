@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
 - limitrange-placement-binding.yaml
 - placement.yaml
-- ../policy
 patches:
 - patch: |-
     - op: add
