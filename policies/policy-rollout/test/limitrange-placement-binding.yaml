@@ -1,14 +1,14 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
-  name: binding-policy-limitrange
+  name: binding-policy-limitrange-test
   labels:
-    policy: limit-range
+    policy: limit-range-test
 placementRef:
-  name: limit-range-placement
+  name: limit-range-placement-test
   apiGroup: cluster.open-cluster-management.io
   kind: Placement
 subjects:
-- name: policy-limitrange
+- name: policy-limitrange-test
   kind: Policy
   apiGroup: policy.open-cluster-management.io

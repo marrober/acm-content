@@ -6,10 +6,10 @@ metadata:
 spec:
   generators:
     - git:
-      repoURL : https://github.com/marrober/acm-content.git
-      revision: HEAD
-      directories: 
-      - path: policies/policy-rollout/*
+        repoURL : https://github.com/marrober/acm-content.git
+        revision: HEAD
+        directories: 
+          - path: policies/policy-rollout/*
   template:
     metadata:
       name: 'policy-{{path.basename}}'
@@ -20,7 +20,7 @@ spec:
         server: https://kubernetes.default.svc
       source:
         repoURL: https://github.com/marrober/acm-content.git
-        path: {{path}}
+        path: '{{path}}'
         targetRevision: HEAD
       syncPolicy:
         syncOptions:

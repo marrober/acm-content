@@ -1,9 +1,9 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: policy-limitrange
+  name: policy-limitrange-production
   labels:
-    policy: limit-range
+    policy: limit-range-production
 spec:
   remediationAction: enforce
   disabled: false
@@ -12,7 +12,7 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: policy-limitrange
+          name: policy-limitrange-production
         spec:
           severity: medium
           namespaceSelector:

@@ -1,9 +1,9 @@
 apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: Placement
 metadata:
-  name: limit-range-placement
+  name: limit-range-placement-test
   labels:
-    policy: limit-range
+    policy: limit-range-test
 spec:
   tolerations:
     - key: cluster.open-cluster-management.io/unreachable

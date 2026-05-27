@@ -10,4 +10,4 @@ patches:
       path: /metadata/namespace
       value: rhacm-policies
   target:
-    labelSelector: "policy=limit-range"
+    labelSelector: "policy=limit-range-test"
