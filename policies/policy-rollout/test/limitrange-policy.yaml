@@ -29,5 +29,5 @@ spec:
                   limits:
                   - type: Container
                     default:
-                      cpu: 500m
+                      cpu: 600m
                       memory: 512Mi
