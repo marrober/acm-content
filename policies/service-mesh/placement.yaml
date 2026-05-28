@@ -1,19 +1,29 @@
-apiVersion: apps.open-cluster-management.io/v1
-kind: PlacementRule
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: Placement
 metadata:
   name: openshift-clusters-ossm3
   namespace: rhacm-policies
 spec:
-  clusterConditions:
-  - type: ManagedClusterConditionAvailable
-    status: "True"
-  clusterSelector:
-    matchExpressions:
-      - key: vendor
-        operator: In
-        values:
-        - "OpenShift"
-      - key: service-mesh
-        operator: In
-        values:
-        - "true"
+  numberOfClusters: 1
+  tolerations:
+    - key: cluster.open-cluster-management.io/unreachable
+      operator: Exists
+    - key: cluster.open-cluster-management.io/unavailable
+      operator: Exists
+  clusterSets:
+    - dev-clusters
+  predicates:
+  - requiredClusterSelector:
+      labelSelector:
+        matchExpressions:
+          - key: environment
+            operator: In
+            values:
+            - "production"
+            - "dev"
+  prioritizerPolicy:
+    mode: Exact
+    configurations:
+      - scoreCoordinate:
+          builtIn: ResourceAllocatableMemory
+        weight: 1

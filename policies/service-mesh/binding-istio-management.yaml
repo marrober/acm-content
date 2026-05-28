@@ -1,13 +1,13 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
-  name: ossm3-binding
+  name: ossm3-binding-control-plane-mgmt
   namespace: rhacm-policies
 placementRef:
   name: openshift-clusters-ossm3
   kind: Placement
   apiGroup: cluster.open-cluster-management.io
 subjects:
-- name: ossm3-operator
+- name: istio-control-plane-mgmt
   kind: Policy
   apiGroup: policy.open-cluster-management.io
