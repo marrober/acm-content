@@ -1,0 +1,39 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: limitrange-t-shirt
+  labels:
+    policy: limit-range-t-shirt
+spec:
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: limitrange-t-shirt
+        spec:
+          severity: medium
+          object-templates-raw: |   
+            {{- range $ns:= (lookup "v1" "Namespace" "" "" "size").items }}   
+            {{- $size := index $ns.metadata.labels "size" }}
+            - complianceType: musthave 
+              objectDefinition:
+                apiVersion: v1
+                kind: LimitRange
+                metadata:
+                  name: limit-range-t-shirt
+                  namespace: {{ $ns.metadata.name }}
+                  annotations: 
+                    size: '{{ index $ns.metadata.labels "size" }}'
+                spec:
+                  limits:
+                  - type: Container
+                    default:
+                      cpu: '{{ if eq $size "small" }}100m{{ else if eq $size "medium" }}200m{{ else if eq $size "large" }}500m{{ else }}100m{{ end }}'
+                      memory: '{{ if eq $size "small" }}100Mi{{ else if eq $size "medium" }}200Mi{{ else if eq $size "large" }}1000Mi{{ else }}100m{{ end }}'
+                    defaultRequest:
+                      cpu: '50m'
+                      memory: '50Mi'   
+            {{- end }}
+          remediationAction: enforce  
