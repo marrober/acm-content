@@ -1,0 +1,12 @@
+apiVersion: cluster.open-cluster-management.io/v1beta2
+kind: ManagedClusterSet
+metadata:
+  name: all-clusters
+---
+apiVersion: cluster.open-cluster-management.io/v1beta2
+kind: ManagedClusterSetBinding
+metadata:
+  name: all-clusters
+  namespace: rhacm-policies
+spec:
+  clusterSet: all-clusters
