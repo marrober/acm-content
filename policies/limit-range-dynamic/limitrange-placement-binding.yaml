@@ -1,0 +1,14 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-policy-limitrange-dynamic
+  labels:
+    policy: limit-range-dynamic
+placementRef:
+  name: limit-range-dynamic
+  kind: Placement
+  apiGroup: cluster.open-cluster-management.io
+subjects:
+- name: policy-limitrange-dynamic
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io

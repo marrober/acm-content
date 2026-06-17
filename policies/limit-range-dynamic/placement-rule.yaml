@@ -1,0 +1,24 @@
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: Placement
+metadata:
+  name: limit-range-dynamic
+  namespace: rhacm-policies
+spec:
+  numberOfClusters: 1
+  clusterSets:
+    - dev-clusters
+  predicates:
+  - requiredClusterSelector:
+      labelSelector:
+        matchExpressions:
+          - key: environment
+            operator: In
+            values:
+            - "production"
+            - "dev"
+  prioritizerPolicy:
+    mode: Exact
+    configurations:
+      - scoreCoordinate:
+          builtIn: ResourceAllocatableCPU
+        weight: 1
