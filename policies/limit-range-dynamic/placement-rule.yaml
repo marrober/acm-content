@@ -20,5 +20,8 @@ spec:
     mode: Exact
     configurations:
       - scoreCoordinate:
-          builtIn: ResourceAllocatableCPU
-        weight: 1
+          type: AddOn
+          addOn:
+            resourceName: resource-usage-score
+            scoreName: memClusterAvailable
+        weight: 10
