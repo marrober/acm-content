@@ -5,3 +5,4 @@ resources:
 - gatekeeper-config-policy-binding.yaml
 - gatekeeper-config-policy.yaml
 - required-annotations/required-annotations-policy.yaml
+- gatekeeper-policy-set.yaml

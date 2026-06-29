@@ -1,0 +1,25 @@
+apiVersion: policy.open-cluster-management.io/v1beta1
+kind: PolicySet
+metadata:
+  name: gatekeeper-policies
+  namespace: rhacm-policies
+spec:
+  description: ""
+  policies:
+    - gatekeeper-config
+    - gatekeeper-policy
+    - gatekeeper-policy-required-annotations-opa
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: gatekeeper-policies-placement-binding
+  namespace: rhacm-policies
+placementRef:
+  name: openshift-clusters
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+  - name: gatekeeper-policies
+    apiGroup: policy.open-cluster-management.io
+    kind: PolicySet

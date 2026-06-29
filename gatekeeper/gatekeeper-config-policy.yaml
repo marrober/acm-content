@@ -74,7 +74,10 @@ spec:
                           - assisted-installer
                           - default
                           - default-broker
-                          - keycloak
+                          - keycloak-*
+                          - dev-clusters-broker
+                          - argo-*
+                          - gitlab-*
                         processes:
                           - '*'
                   validatingWebhook: Enabled

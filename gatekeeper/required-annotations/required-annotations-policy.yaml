@@ -1,7 +1,7 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: required-annotations-opa
+  name: gatekeeper-policy-required-annotations-opa
   namespace: 	rhacm-policies
 spec:
   disabled: false
@@ -92,6 +92,6 @@ placementRef:
   apiGroup: apps.open-cluster-management.io
   kind: PlacementRule
 subjects:
-  - name: required-annotations-opa
+  - name: gatekeeper-policy-required-annotations-opa
     apiGroup: policy.open-cluster-management.io
     kind: Policy

@@ -3,12 +3,12 @@ kind: Kustomization
 
 resources:
 - ../common/
-- re-encrypt-routes-placement-binding.yaml
-- re-encrypt-routes-policy.yaml
+- edge-routes-placement-binding.yaml
+- edge-routes-policy.yaml
 patches:
 - patch: |-
     - op: add
       path: /metadata/namespace
       value: rhacm-policies
   target:
-    labelSelector: "policy=re-encrypt-routes"
+    labelSelector: "policy=edge-routes"
