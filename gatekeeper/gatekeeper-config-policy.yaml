@@ -54,6 +54,8 @@ spec:
                   name: gatekeeper
                   namespace: openshift-gatekeeper-system
                 spec:
+                  audit:
+                    constraintViolationLimit: 123
                   config:
                     matches:
                       - excludedNamespaces:
