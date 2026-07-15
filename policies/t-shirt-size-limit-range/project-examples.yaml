@@ -1,0 +1,27 @@
+kind: Project
+apiVersion: project.openshift.io/v1
+metadata:
+  name: project-1
+  labels:
+    size: small
+---
+kind: Project
+apiVersion: project.openshift.io/v1
+metadata:
+  name: project-2
+  labels:
+    size: small
+---
+kind: Project
+apiVersion: project.openshift.io/v1
+metadata:
+  name: project-3
+  labels:
+    size: medium
+---
+kind: Project
+apiVersion: project.openshift.io/v1
+metadata:
+  name: project-4
+  labels:
+    size: large

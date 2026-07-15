@@ -20,6 +20,7 @@ spec:
             - 'test-*'
           object-templates:
             - complianceType: musthave
+              recreateOption: IfRequired
               objectDefinition:
                 apiVersion: v1
                 kind: LimitRange
