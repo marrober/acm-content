@@ -4,7 +4,7 @@ metadata:
   name: dev-spaces
   namespace: rhacm-policies
 spec:
-  remediationAction: enforce
+  remediationAction: inform
   disabled: false
   policy-templates:
     - objectDefinition:

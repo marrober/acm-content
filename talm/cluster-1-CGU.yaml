@@ -1,0 +1,64 @@
+apiVersion: ran.openshift.io/v1alpha1
+kind: ClusterGroupUpgrade
+metadata:
+  resourceVersion: '266780459'
+  name: cluster-1
+  namespace: ztp-install
+  ownerReferences:
+    - apiVersion: cluster.open-cluster-management.io/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ManagedCluster
+      name: cluster-1
+      uid: 79a63461-6c0c-448d-a3d5-114228ebcae9
+  finalizers:
+    - ran.openshift.io/cleanup-finalizer
+spec:
+  actions:
+    afterCompletion:
+      addClusterLabels:
+        ztp-done: ''
+      deleteObjects: true
+      removeClusterLabels:
+        - ztp-running
+    beforeEnable:
+      addClusterLabels:
+        ztp-running: ''
+  backup: false
+  clusters:
+    - cluster-1
+  enable: true
+  preCaching: false
+  preCachingConfigRef: {}
+  remediationStrategy:
+    maxConcurrency: 1
+    timeout: 240
+status:
+  clusters:
+    - name: cluster-1
+      state: complete
+  computedMaxConcurrency: 1
+  conditions:
+    - lastTransitionTime: '2026-07-16T10:23:24Z'
+      message: All selected clusters are valid
+      reason: ClusterSelectionCompleted
+      status: 'True'
+      type: ClustersSelected
+    - lastTransitionTime: '2026-07-16T10:23:24Z'
+      message: Completed validation
+      reason: ValidationCompleted
+      status: 'True'
+      type: Validated
+    - lastTransitionTime: '2026-07-16T10:23:24Z'
+      message: All clusters are compliant with all the managed policies
+      reason: Completed
+      status: 'False'
+      type: Progressing
+    - lastTransitionTime: '2026-07-16T10:23:24Z'
+      message: All clusters already compliant with the specified managed policies
+      reason: Completed
+      status: 'True'
+      type: Succeeded
+  status:
+    completedAt: '2026-07-16T10:23:24Z'
+    startedAt: '2026-07-16T10:23:24Z'
