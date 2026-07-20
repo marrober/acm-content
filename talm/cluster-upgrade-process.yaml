@@ -1,0 +1,29 @@
+apiVersion: ran.openshift.io/v1alpha1
+kind: ClusterGroupUpgrade
+metadata:
+  name: operator-upgrade-plan
+  namespace: rhacm-policies
+spec:
+  actions:
+    afterCompletion:
+      addClusterLabels:
+        ztp-done: ''
+      deleteObjects: true
+      removeClusterLabels:
+        - ztp-running
+    beforeEnable:
+      addClusterLabels:
+        ztp-running: ''
+  backup: false
+  clusters:
+    - cluster-1
+    - local-cluster
+  managedPolicies: 
+    - dev-spaces
+    - dev-spaces-che-cluster
+  enable: false
+  preCaching: false
+  preCachingConfigRef: {}
+  remediationStrategy:
+    maxConcurrency: 1
+    timeout: 240
