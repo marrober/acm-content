@@ -1,0 +1,47 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: dev-spaces-installation
+  namespace: rhacm-policies
+spec:
+  remediationAction: inform
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy 
+        metadata:
+          name: install-devspaces-operator
+          namespace: openshift-operators
+        spec:
+          remediationAction: inform
+          severity: medium
+          object-templates: 
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: ://coreos.com
+                kind: Subscription
+                metadata:
+                  name: devspaces
+                  namespace: openshift-operators
+                spec:
+                  channel: stable
+                  name: devspaces
+                  source: redhat-operators
+                  sourceNamespace: openshift-marketplace
+                  startingCSV: devspacesoperator.v3.26.0
+                  installPlanApproval: Automatic
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-install-devspaces-operator
+  namespace: rhacm-policies
+placementRef:
+  name: openshift-clusters
+  kind: Placement
+  apiGroup: cluster.open-cluster-management.io
+subjects:
+- name: dev-spaces-installation
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io

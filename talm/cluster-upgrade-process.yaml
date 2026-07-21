@@ -19,8 +19,8 @@ spec:
     - cluster-1
     - local-cluster
   managedPolicies: 
-    - dev-spaces
     - dev-spaces-che-cluster
+    - dev-spaces-installation
   enable: false
   preCaching: false
   preCachingConfigRef: {}
