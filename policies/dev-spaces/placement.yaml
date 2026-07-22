@@ -1,7 +1,7 @@
 apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: Placement
 metadata:
-  name: openshift-clusters
+  name: openshift-clusters-dev-spaces
   namespace: rhacm-policies
 spec:
   predicates:

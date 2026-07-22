@@ -92,7 +92,7 @@ metadata:
   name: binding-install-devspaces-che-cluster
   namespace: rhacm-policies
 placementRef:
-  name: openshift-clusters
+  name: openshift-clusters-dev-spaces
   kind: Placement
   apiGroup: cluster.open-cluster-management.io
 subjects:

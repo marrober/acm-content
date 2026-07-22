@@ -4,7 +4,7 @@ metadata:
   name: dev-spaces-installation
   namespace: rhacm-policies
 spec:
-  remediationAction: inform
+  remediationAction: enforce
   disabled: false
   policy-templates:
     - objectDefinition:
@@ -19,7 +19,7 @@ spec:
           object-templates: 
             - complianceType: musthave
               objectDefinition:
-                apiVersion: ://coreos.com
+                apiVersion: operators.coreos.com/v1alpha1
                 kind: Subscription
                 metadata:
                   name: devspaces
@@ -38,7 +38,7 @@ metadata:
   name: binding-install-devspaces-operator
   namespace: rhacm-policies
 placementRef:
-  name: openshift-clusters
+  name: openshift-clusters-dev-spaces
   kind: Placement
   apiGroup: cluster.open-cluster-management.io
 subjects:

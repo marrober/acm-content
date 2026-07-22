@@ -20,10 +20,9 @@ spec:
             operator: In
             values:
             - "production"
-            - "dev"
-  prioritizerPolicy:
-    mode: Exact
-    configurations:
-      - scoreCoordinate:
-          builtIn: ResourceAllocatableMemory
-        weight: 1
+#  prioritizerPolicy:
+#    mode: Exact
+#    configurations:
+#      - scoreCoordinate:
+#          builtIn: ResourceAllocatableMemory
+#        weight: 1

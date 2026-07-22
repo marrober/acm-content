@@ -6,8 +6,8 @@ metadata:
   labels:
     policy: edge-routes
 placementRef:
-  apiGroup: apps.open-cluster-management.io
-  kind: PlacementRule
+  kind: Placement
+  apiGroup: cluster.open-cluster-management.io
   name: openshift-clusters
 subjects:
 - apiGroup: policy.open-cluster-management.io

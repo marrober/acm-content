@@ -10,7 +10,7 @@ spec:
   disabled: false
   policy-templates:
     - objectDefinition:
-        apiVersion: policy.open-cluster-management.io/v1
+        apiVersion: policy.open-cluster-management.io/v1beta1
         kind: OperatorPolicy
         metadata:
           name: web-terminal
@@ -18,6 +18,7 @@ spec:
           remediationAction: enforce
           complianceType: musthave
           severity: medium
+          upgradeApproval: Automatic 
           subscription:
             channel: fast
             name: web-terminal
@@ -25,4 +26,3 @@ spec:
             source: redhat-operators
             sourceNamespace: openshift-marketplace
             startingCSV: web-terminal.v1.11.0
-          upgradeApproval: None # None or Automatic
