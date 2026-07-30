@@ -4,9 +4,9 @@ metadata:
   name: pipelines-binding
   namespace: rhacm-policies
 placementRef:
-  name: openshift-clusters
-  kind: PlacementRule
-  apiGroup: apps.open-cluster-management.io
+  apiGroup: cluster.open-cluster-management.io
+  kind: Placement
+  name: pipelines-placement
 subjects:
 - name: pipelines-operator
   kind: Policy

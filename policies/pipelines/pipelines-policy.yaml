@@ -34,30 +34,28 @@ spec:
               name: openshift-pipelines-operator-rh
               source: redhat-operators
               sourceNamespace: openshift-marketplace
-    - objectDefinition:
-        apiVersion: policy.open-cluster-management.io/v1
-        kind: ConfigurationPolicy
-        metadata:
-          name: pipeline-pruner
-        spec:
-          severity: medium
-          object-templates:
-            - complianceType: musthave
-              recreateOption: IfRequired
-              objectDefinition:
-                apiVersion: operator.tekton.dev/v1alpha1
-                kind: TektonConfig
-                metadata:
-                  name: config
-                spec:
-                  pruner:
-                    disabled: false
-                    schedule: "0 9-17 * * *"        # Hourly between 9 am and 5 pm
-                    resources:
-                      - pipelinerun
-                      - taskrun
-                    keep: 3                          # Keeps only the 3 most recent runs
-                    prune-per-resource: true         # Applies 'keep' strategy independently
-                    prune-strategy: pipeline
+  - objectDefinition:
+      apiVersion: policy.open-cluster-management.io/v1
+      kind: ConfigurationPolicy
+      metadata:
+        name: pipeline-pruner
+      spec:
+        severity: medium
+        object-templates:
+          - complianceType: musthave
+            objectDefinition:
+              apiVersion: operator.tekton.dev/v1alpha1
+              kind: TektonConfig
+              metadata:
+                name: config
+              spec:
+                pruner:
+                  disabled: false
+                  schedule: "0 9-17 * * *"        # Hourly between 9 am and 5 pm
+                  resources:
+                    - pipelinerun
+                    - taskrun
+                  keep: 3                          # Keeps only the 3 most recent runs
+                  prune-per-resource: true         # Applies 'keep' strategy independently
 
 
