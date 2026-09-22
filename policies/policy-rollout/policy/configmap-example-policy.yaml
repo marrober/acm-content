@@ -25,6 +25,5 @@ spec:
                 kind: ConfigMap
                 metadata:
                   name: test-config-map
-                  namespace: test-1
                 data:
                   cluster-environment: '{{hub- if eq .ManagedClusterLabels.environment "dev" -hub}}its dev !{{hub- else -hub}}Careful! this is production{{hub- end -hub}}'
