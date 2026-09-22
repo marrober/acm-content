@@ -1,9 +1,9 @@
 apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: Placement
 metadata:
-  name: limit-range-placement-production
+  name: configmap-placement-production
   labels:
-    policy: limit-range
+    policy: configmap
 spec:
   tolerations:
     - key: cluster.open-cluster-management.io/unreachable

@@ -1,7 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- limitrange-placement-binding.yaml
+- configmap-placement-binding.yaml
 - placement.yaml
 - ../policy
 patches:
@@ -9,7 +9,7 @@ patches:
       group: policy.open-cluster-management.io
       version: v1
       kind: Policy
-      name: policy-limitrange
+      name: policy-configmap
     patch: |-
       - op: add
         path: /metadata/namespace
@@ -18,18 +18,18 @@ patches:
       group: policy.open-cluster-management.io
       version: v1
       kind: Policy
-      name: policy-limitrange
+      name: policy-configmap
     patch: |-
       - op: replace
         path: /metadata/name
-        value: policy-limitrange-test
+        value: policy-configmap-test
   - target:
       group: policy.open-cluster-management.io
       version: v1
       kind: Policy
-      name: policy-limitrange
+      name: policy-configmap
     patch: |-
       - op: replace
         path: /spec/policy-templates/0/objectDefinition/metadata/name
-        value: policy-limitrange-test
+        value: policy-configmap-test
 

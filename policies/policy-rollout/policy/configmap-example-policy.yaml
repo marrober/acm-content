@@ -1,9 +1,9 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: policy-limitrange
+  name: policy-configmap
   labels:
-    policy: limit-range
+    policy: configmap
 spec:
   remediationAction: enforce
   disabled: false
@@ -12,35 +12,19 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: policy-limitrange
+          name: policy-configmap-example
         spec:
           severity: medium
           namespaceSelector:
             include: ['test-*']
-          object-templates:
-            - complianceType: musthave
-              recreateOption: IfRequired
-              objectDefinition:
-                apiVersion: v1
-                kind: LimitRange
-                metadata:
-                  name: default-limit-range
-                spec:
-                  limits:
-                  - type: Container
-                    default:
-                      cpu: '900m'
-                      memory: '524Mi'
-                    defaultRequest:
-                      cpu: '300m'
-                      memory: '200Mi'      
+          object-templates: 
             - complianceType: musthave
               recreateOption: IfRequired
               objectDefinition:
                 apiVersion: v1
                 kind: ConfigMap
                 metadata:
-                  name: default-limit-range-cm
+                  name: default-configmap-cm
                   namespace: test-1
                 data:
                   cluster-environment: '{{hub- if eq .ManagedClusterLabels.environment "dev" -hub}}its dev !{{hub- else -hub}}Careful! this is production{{hub- end -hub}}'
