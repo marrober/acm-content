@@ -2,6 +2,7 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
   name: dev-clusters
+  namespace: rhacm-policies
   labels:
     policy: default-sa
 spec:
