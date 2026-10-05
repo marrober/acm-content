@@ -25,7 +25,7 @@ spec:
                 spec:
                   channel: stable
                   installPlanApproval: Automatic
-                  name: gatekeeper-operator-product
+                  name: gatekeeper
                   source: redhat-operators
                   sourceNamespace: openshift-marketplace
 ---
@@ -54,27 +54,15 @@ spec:
                   name: gatekeeper
                   namespace: openshift-gatekeeper-system
                 spec:
+                  audit:
+                    constraintViolationLimit: 1000
+                    auditChunkSize: 1000
                   config:
                     matches:
-                      - excludedNamespaces:
-                          - open-cluster-management
-                          - kube-*
-                          - openshift-*
-                          - openshift
-                          - klusterlet-*
-                          - hypershift
-                          - open-*
-                          - hive
-                          - local-*
-                          - multicluster-*
-                          - rhacs-*
-                          - stackrox
-                          - cluster-*
-                          - cert-manager*
-                          - assisted-installer
-                          - default
-                          - default-broker
-                          - keycloak
-                        processes:
-                          - '*'
+                      - excludedNamespaces: [
+                          "cert-manager",
+                          "cert-manager-operator",
+                          "open-cluster-management-hub"
+                        ] 
+                        processes: ["*"]
                   validatingWebhook: Enabled

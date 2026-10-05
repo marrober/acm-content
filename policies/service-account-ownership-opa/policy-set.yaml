@@ -1,0 +1,10 @@
+apiVersion: policy.open-cluster-management.io/v1beta1
+kind: PolicySet
+metadata:
+  name: required-annotations
+  namespace: rhacm-policies
+spec:
+  policies:
+    - gatekeeper-config
+    - gatekeeper-policy
+    - required-annotations-opa

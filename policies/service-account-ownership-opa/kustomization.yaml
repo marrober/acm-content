@@ -6,3 +6,4 @@ resources:
 - gatekeeper-config-policy.yaml
 - gatekeeper-config-placement-rule.yaml
 - required-annotations/required-annotations-policy.yaml
+- policy-set.yaml
