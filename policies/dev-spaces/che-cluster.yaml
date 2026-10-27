@@ -4,7 +4,7 @@ metadata:
   name: dev-spaces-che-cluster
   namespace: rhacm-policies
 spec:
-  remediationAction: inform
+  remediationAction: enforce
   disabled: false
   policy-templates:
     - objectDefinition:
@@ -42,7 +42,7 @@ spec:
                       enable: false
                       spec: {}
                     metrics:
-                      enable: true
+                      enable: false
                     pluginRegistry: {}
                   containerRegistry: {}
                   devEnvironments:
