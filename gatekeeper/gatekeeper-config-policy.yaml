@@ -55,7 +55,7 @@ spec:
                   namespace: openshift-gatekeeper-system
                 spec:
                   audit:
-                    constraintViolationLimit: 123
+                    constraintViolationLimit: 200
                   config:
                     matches:
                       - excludedNamespaces:
@@ -80,6 +80,8 @@ spec:
                           - dev-clusters-broker
                           - argo-*
                           - gitlab-*
+                          - konflux-*
+                          - '*-devspaces'
                         processes:
                           - '*'
                   validatingWebhook: Enabled
