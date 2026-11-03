@@ -8,7 +8,8 @@ spec:
   policies:
     - gatekeeper-config
     - gatekeeper-policy
-    - gatekeeper-policy-required-annotations-opa
+    - gatekeeper-required-annotations
+    - gatekeeper-policy-empty-namespace
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding

@@ -29,3 +29,16 @@ spec:
         operator: In
         values:
         - "true"
+---
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: Placement
+metadata:
+  name: openshift-clusters
+spec:
+  tolerations:
+    - key: cluster.open-cluster-management.io/unreachable
+      operator: Exists
+    - key: cluster.open-cluster-management.io/unavailable
+      operator: Exists
+  clusterSets:
+    - dev-clusters
