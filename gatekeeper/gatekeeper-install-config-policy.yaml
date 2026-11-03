@@ -1,7 +1,7 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: gatekeeper-policy
+  name: gatekeeper-operator
   namespace: rhacm-policies
 spec:
   remediationAction: enforce
@@ -35,7 +35,7 @@ spec:
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: gatekeeper-config
+  name: gatekeeper-operator-config
   namespace: rhacm-policies
 spec:
   remediationAction: enforce

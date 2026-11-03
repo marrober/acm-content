@@ -1,7 +1,7 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: gatekeeper-policy-empty-namespace
+  name: gatekeeper-empty-namespace
   namespace: rhacm-policies
 spec:
   disabled: false
@@ -65,6 +65,6 @@ placementRef:
   apiGroup: apps.open-cluster-management.io
   kind: PlacementRule
 subjects:
-  - name: gatekeeper-policy-empty-namespace
+  - name: gatekeeper-empty-namespace
     apiGroup: policy.open-cluster-management.io
     kind: Policy

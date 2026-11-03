@@ -6,10 +6,10 @@ metadata:
 spec:
   description: ""
   policies:
-    - gatekeeper-config
-    - gatekeeper-policy
+    - gatekeeper-operator
+    - gatekeeper-operator-config
     - gatekeeper-required-annotations
-    - gatekeeper-policy-empty-namespace
+    - gatekeeper-empty-namespace
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding

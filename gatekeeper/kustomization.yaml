@@ -3,7 +3,7 @@ kind: Kustomization
 
 resources:
 - gatekeeper-config-policy-binding.yaml
-- gatekeeper-config-policy.yaml
+- gatekeeper-install-config-policy.yaml
 - required-annotations/required-annotations-policy.yaml
 - empty-workspace-namespace/empty-namespace-policy.yaml
 - gatekeeper-policy-set.yaml

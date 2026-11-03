@@ -1,7 +1,7 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: policy-limitrange
+  name: limit-range
   labels:
     policy: limit-range
 spec:
