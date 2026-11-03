@@ -26,6 +26,9 @@ spec:
         metadata:
           name: managed-cluster-security-ns
         spec:
+          evaluationInterval:
+            compliant: 10m
+            noncompliant: 60s
           remediationAction: inform
           severity: high
           object-templates:
@@ -55,6 +58,9 @@ spec:
         metadata:
           name: managed-cluster-security-operator-sub
         spec:
+          evaluationInterval:
+            compliant: 10m
+            noncompliant: 60s
           remediationAction: inform
           severity: high
           object-templates:
@@ -77,6 +83,9 @@ spec:
         metadata:
           name: managed-cluster-security-endpoints
         spec:
+          evaluationInterval:
+            compliant: 10m
+            noncompliant: 60s
           remediationAction: inform
           severity: high
           object-templates:

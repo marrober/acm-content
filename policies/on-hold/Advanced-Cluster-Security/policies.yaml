@@ -87,6 +87,9 @@ spec:
       metadata:
         name: policy-acs-central-ca-bundle
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:
@@ -259,6 +262,9 @@ spec:
       metadata:
         name: policy-acs-central-status
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:
@@ -317,6 +323,9 @@ spec:
       metadata:
         name: policy-acs-operator-central
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:
@@ -406,6 +415,9 @@ spec:
       metadata:
         name: policy-acs-sync-resources
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:
@@ -440,6 +452,9 @@ spec:
       metadata:
         name: policy-acs-sync-resources2
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:
@@ -463,6 +478,9 @@ spec:
       metadata:
         name: policy-acs-sync-resources3
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:
@@ -486,6 +504,9 @@ spec:
       metadata:
         name: policy-acs-sync-resources4
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:
@@ -510,6 +531,9 @@ spec:
       metadata:
         name: policy-acs-sync-resources5
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:
@@ -550,6 +574,9 @@ spec:
       metadata:
         name: policy-advanced-managed-cluster-security
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:
@@ -565,6 +592,9 @@ spec:
       metadata:
         name: policy-advanced-managed-cluster-security2
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:
@@ -580,6 +610,9 @@ spec:
       metadata:
         name: policy-advanced-managed-cluster-security3
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:
@@ -597,6 +630,9 @@ spec:
       metadata:
         name: policy-advanced-managed-cluster-security4
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:
@@ -619,6 +655,9 @@ spec:
       metadata:
         name: policy-advanced-managed-cluster-security5
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:
@@ -643,6 +682,9 @@ spec:
       metadata:
         name: policy-advanced-managed-cluster-security6
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:
@@ -666,6 +708,9 @@ spec:
       metadata:
         name: policy-advanced-managed-cluster-security7
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:
@@ -690,6 +735,9 @@ spec:
       metadata:
         name: policy-advanced-managed-cluster-security8
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:
@@ -739,6 +787,9 @@ spec:
       metadata:
         name: policy-advanced-managed-cluster-status
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:

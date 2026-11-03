@@ -13,6 +13,9 @@ spec:
       metadata:
         name: gitops-operator
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:
@@ -33,6 +36,9 @@ spec:
       metadata:
         name: argo-rollout-manager
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:

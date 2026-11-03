@@ -14,6 +14,9 @@ spec:
           name: gatekeeper-operator
           namespace: rhacm-policies
         spec:
+          evaluationInterval:
+            compliant: 10m
+            noncompliant: 60s
           object-templates:
             - complianceType: mustonlyhave
               objectDefinition:
@@ -45,6 +48,9 @@ spec:
           name: gatekeeper-config
           namespace: rhacm-policies
         spec:
+          evaluationInterval:
+            compliant: 10m
+            noncompliant: 60s
           object-templates:
             - complianceType: mustonlyhave
               objectDefinition:

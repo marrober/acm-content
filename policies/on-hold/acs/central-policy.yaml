@@ -19,6 +19,9 @@ spec:
         metadata:
           name: advanced-cluster-security-namespace
         spec:
+          evaluationInterval:
+            compliant: 10m
+            noncompliant: 60s
           remediationAction: inform
           severity: high
           object-templates:
@@ -48,6 +51,9 @@ spec:
         metadata:
           name: advanced-cluster-security-operator-subscription
         spec:
+          evaluationInterval:
+            compliant: 10m
+            noncompliant: 60s
           remediationAction: inform
           severity: high
           object-templates:
@@ -70,6 +76,9 @@ spec:
         metadata:
           name: advanced-cluster-security-central
         spec:
+          evaluationInterval:
+            compliant: 10m
+            noncompliant: 60s
           remediationAction: inform
           severity: high
           object-templates:

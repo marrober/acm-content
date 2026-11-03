@@ -14,6 +14,9 @@ spec:
           name: devspaces-che-cluster-installation
           namespace: openshift-operators
         spec:
+          evaluationInterval:
+            compliant: 10m
+            noncompliant: 60s
           severity: medium
           object-templates:
             - complianceType: musthave
@@ -71,6 +74,9 @@ spec:
                       template: <username>-devspaces
                     secondsOfInactivityBeforeIdling: 1800
                     storage:
+                      perUserStrategyPvcConfig:
+                        storageClass: lvms-vg1
+                        claimSize: 10Gi
                       pvcStrategy: per-user
                   gitServices: {}
                   networking:

@@ -12,6 +12,9 @@ spec:
       metadata:
         name: kiali-operator
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:
@@ -33,6 +36,9 @@ spec:
       metadata:
         name: ossm3-operator
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:
@@ -54,6 +60,9 @@ spec:
       metadata:
         name: namespaces
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:
@@ -99,6 +108,9 @@ spec:
       metadata:
         name: istio-control-plane-creation
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:
@@ -119,6 +131,9 @@ spec:
       metadata:
         name: istio-cni
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:
@@ -136,6 +151,9 @@ spec:
       metadata:
         name: user-monitoring
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:
@@ -154,6 +172,9 @@ spec:
       metadata:
         name: servicemonitor
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:
@@ -178,6 +199,9 @@ spec:
       metadata:
         name: role-binding
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:
@@ -200,6 +224,9 @@ spec:
       metadata:
         name: kiali
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:
@@ -224,6 +251,9 @@ spec:
       metadata:
         name: open-telemetry-operator
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:
@@ -245,6 +275,9 @@ spec:
       metadata:
         name: tempo-operator
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:

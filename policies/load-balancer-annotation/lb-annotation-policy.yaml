@@ -14,6 +14,9 @@ spec:
         metadata:
           name: load-balancer-annotation
         spec:
+          evaluationInterval:
+            compliant: 10m
+            noncompliant: 60s
           severity: medium
           object-templates-raw: |   
             {{- range $ns:= (lookup "v1" "Namespace" "" "" "svc-nodeport=allowed").items }}   

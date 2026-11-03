@@ -31,6 +31,9 @@ spec:
         metadata:
           name: web-terminal-crd-check
         spec:
+          evaluationInterval:
+            compliant: 10m
+            noncompliant: 60s
           remediationAction: inform
           severity: medium
           object-templates:

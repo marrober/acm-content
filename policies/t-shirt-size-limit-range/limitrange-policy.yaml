@@ -13,6 +13,9 @@ spec:
         metadata:
           name: limitrange-t-shirt
         spec:
+          evaluationInterval:
+            compliant: 10m
+            noncompliant: 60s
           severity: medium
           object-templates-raw: |   
             {{- range $ns:= (lookup "v1" "Namespace" "" "" "size").items }}   

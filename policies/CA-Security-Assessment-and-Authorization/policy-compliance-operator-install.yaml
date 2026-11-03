@@ -22,6 +22,9 @@ spec:
         metadata:
           name: comp-operator-ns
         spec:
+          evaluationInterval:
+            compliant: 10m
+            noncompliant: 60s
           severity: high
           object-templates:
             - complianceType: musthave
@@ -36,6 +39,9 @@ spec:
         metadata:
           name: comp-operator-operator-group
         spec:
+          evaluationInterval:
+            compliant: 10m
+            noncompliant: 60s
           severity: high
           object-templates:
             - complianceType: musthave
@@ -54,6 +60,9 @@ spec:
         metadata:
           name: comp-operator-subscription
         spec:
+          evaluationInterval:
+            compliant: 10m
+            noncompliant: 60s
           remediationAction: inform  # will be overridden by remediationAction in parent policy
           severity: high
           object-templates:
@@ -75,6 +84,9 @@ spec:
         metadata:
           name: comp-operator-status
         spec:
+          evaluationInterval:
+            compliant: 10m
+            noncompliant: 60s
           remediationAction: inform  # will be overridden by remediationAction in parent policy
           severity: high
           object-templates:

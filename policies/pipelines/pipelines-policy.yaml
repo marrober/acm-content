@@ -14,6 +14,9 @@ spec:
         name: pipelines-operator
         namespace: rhacm-policies
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         object-templates:
         - complianceType: musthave
           objectDefinition:
@@ -40,6 +43,9 @@ spec:
       metadata:
         name: pipeline-pruner
       spec:
+        evaluationInterval:
+          compliant: 10m
+          noncompliant: 60s
         severity: medium
         object-templates:
           - complianceType: musthave

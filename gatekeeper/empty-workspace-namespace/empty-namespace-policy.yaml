@@ -1,0 +1,70 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: gatekeeper-policy-empty-namespace
+  namespace: rhacm-policies
+spec:
+  disabled: false
+  remediationAction: inform
+  policy-templates:
+    - objectDefinition:
+        apiVersion: templates.gatekeeper.sh/v1
+        kind: ConstraintTemplate
+        metadata:
+          name: emptynamespace
+        spec:
+          crd:
+            spec:
+              names:
+                kind: emptynamespace
+          targets:
+            - target: admission.k8s.gatekeeper.sh
+              rego: |
+                package emptynamespace
+
+                violation[{"msg": msg}] {
+                  # Target Namespace resources
+                  input.review.kind.kind == "Namespace"
+                  ns := input.review.object
+
+                  # Match the specific target component label
+                  ns.metadata.labels
+                  ns.metadata.labels["app.kubernetes.io/component"] == "workspaces-namespace"
+
+                  # Trigger violation if there are no running pods in this namespace
+                  not namespace_has_running_pods(ns.metadata.name)
+
+                  msg := sprintf("Namespace '%v' is labeled as a workspaces-namespace but has 0 running pods.", [ns.metadata.name])
+                }
+
+                # Helper rule to look up synced Pods in the data inventory cache.
+                # ns_name is a string (namespace name); do not treat it as an object.
+                namespace_has_running_pods(ns_name) {
+                  pod := data.inventory.namespace[ns_name]["v1"]["Pod"][_]
+                  pod.status.phase == "Running"
+                }
+    - objectDefinition:
+        apiVersion: constraints.gatekeeper.sh/v1beta1
+        kind: emptynamespace
+        metadata:
+          name: empty-workspace-namespaces
+        spec:
+          enforcementAction: inform
+          match:
+            kinds:
+              - apiGroups: [""]
+                kinds: ["Namespace"]
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: empty-namespace
+  namespace: rhacm-policies
+placementRef:
+  name: openshift-clusters
+  apiGroup: apps.open-cluster-management.io
+  kind: PlacementRule
+subjects:
+  - name: gatekeeper-policy-empty-namespace
+    apiGroup: policy.open-cluster-management.io
+    kind: Policy
