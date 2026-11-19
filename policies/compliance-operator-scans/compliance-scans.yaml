@@ -1,0 +1,237 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: compliance-scans
+  namespace: rhacm-policies
+  annotations:
+    policy.open-cluster-management.io/categories: "CM Configuration Management"
+    policy.open-cluster-management.io/controls: "CM-2 Baseline Configuration"
+    policy.open-cluster-management.io/standards: "CIS,PCI-DSS"
+spec:
+  remediationAction: enforce
+  disabled: false
+  namespaceSelector:
+    include:
+      - openshift-compliance
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: cis
+        spec:
+          remediationAction: enforce
+          severity: medium
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: compliance.openshift.io/v1alpha1
+                kind: ScanSettingBinding
+                metadata:
+                  name: cis-compliance
+                  namespace: openshift-compliance
+                profiles:
+                  - name: ocp4-cis
+                    kind: Profile
+                    apiGroup: compliance.openshift.io/v1alpha1
+                settingsRef:
+                  name: default
+                  kind: ScanSetting
+                  apiGroup: compliance.openshift.io/v1alpha1
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: cis-node
+        spec:
+          remediationAction: enforce
+          severity: medium
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: compliance.openshift.io/v1alpha1
+                kind: ScanSettingBinding
+                metadata:
+                  name: cis-compliance
+                  namespace: openshift-compliance
+                profiles:
+                  - name: ocp4-cis-node
+                    kind: Profile
+                    apiGroup: compliance.openshift.io/v1alpha1
+                settingsRef:
+                  name: default
+                  kind: ScanSetting
+                  apiGroup: compliance.openshift.io/v1alpha1
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: pci-dss
+        spec:
+          remediationAction: enforce
+          severity: medium
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: compliance.openshift.io/v1alpha1
+                kind: ScanSettingBinding
+                metadata:
+                  name: pci-dss-compliance
+                  namespace: openshift-compliance
+                profiles:
+                  - name: ocp4-pci-dss
+                    kind: Profile
+                    apiGroup: compliance.openshift.io/v1alpha1
+                settingsRef:
+                  name: default
+                  kind: ScanSetting
+                  apiGroup: compliance.openshift.io/v1alpha1
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: pci-dss-node
+        spec:
+          remediationAction: enforce
+          severity: medium
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: compliance.openshift.io/v1alpha1
+                kind: ScanSettingBinding
+                metadata:
+                  name: pci-dss-compliance
+                  namespace: openshift-compliance
+                profiles:
+                  - name: ocp4-pci-dss-node
+                    kind: Profile
+                    apiGroup: compliance.openshift.io/v1alpha1
+                settingsRef:
+                  name: default
+                  kind: ScanSetting
+                  apiGroup: compliance.openshift.io/v1alpha1
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: moderate
+        spec:
+          remediationAction: enforce
+          severity: medium
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: compliance.openshift.io/v1alpha1
+                kind: ScanSettingBinding
+                metadata:
+                  name: moderate-compliance
+                  namespace: openshift-compliance
+                profiles:
+                  - name: ocp4-moderate
+                    kind: Profile
+                    apiGroup: compliance.openshift.io/v1alpha1
+                settingsRef:
+                  name: default
+                  kind: ScanSetting
+                  apiGroup: compliance.openshift.io/v1alpha1
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: moderate-node
+        spec:
+          remediationAction: enforce
+          severity: medium
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: compliance.openshift.io/v1alpha1
+                kind: ScanSettingBinding
+                metadata:
+                  name: moderate-compliance
+                  namespace: openshift-compliance
+                profiles:
+                  - name: ocp4-moderate-node
+                    kind: Profile
+                    apiGroup: compliance.openshift.io/v1alpha1
+                settingsRef:
+                  name: default
+                  kind: ScanSetting
+                  apiGroup: compliance.openshift.io/v1alpha1
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: high
+        spec:
+          remediationAction: enforce
+          severity: high
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: compliance.openshift.io/v1alpha1
+                kind: ScanSettingBinding
+                metadata:
+                  name: high-compliance
+                  namespace: openshift-compliance
+                profiles:
+                  - name: ocp4-high
+                    kind: Profile
+                    apiGroup: compliance.openshift.io/v1alpha1
+                settingsRef:
+                  name: default
+                  kind: ScanSetting
+                  apiGroup: compliance.openshift.io/v1alpha1
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: high-node
+        spec:
+          remediationAction: enforce
+          severity: high
+          object-templates:
+            - complianceType: musthave
+              objectDefinition:
+                apiVersion: compliance.openshift.io/v1alpha1
+                kind: ScanSettingBinding
+                metadata:
+                  name: high-compliance
+                  namespace: openshift-compliance
+                profiles:
+                  - name: ocp4-high-node
+                    kind: Profile
+                    apiGroup: compliance.openshift.io/v1alpha1
+                settingsRef:
+                  name: default
+                  kind: ScanSetting
+                  apiGroup: compliance.openshift.io/v1alpha1
+---
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: Placement
+metadata:
+  name: placement-policy-comp-operator
+  namespace: rhacm-policies
+spec:
+  predicates:
+  - requiredClusterSelector:
+      labelSelector:
+        matchExpressions:
+          - key: vendor
+            operator: In
+            values:
+            - "OpenShift"
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-openshift-compliance-scans
+  namespace: rhacm-policies
+placementRef:
+  apiGroup: cluster.open-cluster-management.io
+  kind: Placement
+  name: placement-policy-comp-operator
+subjects:
+  - apiGroup: policy.open-cluster-management.io
+    kind: Policy
+    name: compliance-scans
